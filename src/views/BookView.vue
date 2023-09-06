@@ -96,15 +96,21 @@ function updateRoomExtras() {
 }
 
 function submitForm() {
-  const bookingDetails = {
-    checkIn: checkIn.value,
-    checkOut: checkOut.value,
-    adults: adults.value,
-    children: children.value,
-    room: rooms.value.find(room => room.id === selectedRoom.value),
-  };
+  const selectedRoomDetails = rooms.value.find(room => room.id === selectedRoom.value);
+  const numberOfNights = (new Date(checkOut.value) - new Date(checkIn.value)) / (24 * 60 * 60 * 1000);
+  const totalPrice = numberOfNights * selectedRoomDetails.pricePerNight * (adults.value + children.value * 0.5); // Angenommen Kinder kosten 50% des Erwachsenenpreises
+  
+  let bookingMessage = `Sie haben das Zimmer ${selectedRoomDetails.roomsName} gebucht.\n`;
+  bookingMessage += `Anzahl der Erwachsenen: ${adults.value}\n`;
+  
+  if (children.value > 0) {
+    bookingMessage += `Anzahl der Kinder: ${children.value}\n`;
+  }
 
-  console.log('Ihre Buchungsdetails:', bookingDetails);
+  bookingMessage += `Gesamtpreis: ${totalPrice} €`;
+
+  console.log('Ihre Buchungsdetails:', bookingMessage);
+  alert(bookingMessage);  // Zeigt eine Popup-Nachricht mit den Buchungsdetails
 }
 
 watch(selectedRoom, () => {
