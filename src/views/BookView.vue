@@ -14,12 +14,23 @@
         <b-form-input type="date" id="checkOut" v-model="checkOut" required></b-form-input>
       </b-form-group>
 
-      <b-form-group label="Anzahl der Personen:" label-for="persons">
-        <b-form-input type="number" id="persons" v-model="persons" min="1" required></b-form-input>
-      </b-form-group>
+      <b-row>
+        <b-col md="6">
+          <div>
+            <div>Erwachsene (über 12 Jahre):</div>
+            <div><b-form-input type="number" id="adults" v-model="adults" min="1" required></b-form-input></div>
+          </div>
+        </b-col>
+        <b-col md="6">
+          <div>
+            <div>Kinder (unter 12 Jahre):</div>
+            <div><b-form-input type="number" id="children" v-model="children" min="0" required></b-form-input></div>
+          </div>
+        </b-col>
+      </b-row>
 
       <b-form-group label="Zimmerauswahl:" label-for="room">
-        <b-form-select id="room" v-model="selectedRoom" :options="roomOptions" :first="firstOption" @change="updateRoomExtras"></b-form-select>
+        <b-form-select id="room" v-model="selectedRoom" :options="roomOptions" @change="updateRoomExtras"></b-form-select>
       </b-form-group>
 
       <div v-if="selectedRoomExtras.length > 0">
@@ -35,18 +46,26 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted, computed, watch } from 'vue';
 import axios from 'axios';
-import { watch } from 'vue';
 
-// Initialize ref variables
-const firstOption = ref({ text: 'Wählen Sie ein Zimmer', value: null }); // New variable
-const checkIn = ref(new Date().toISOString().split('T')[0]);  // Current Date
-const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]); // Next Day
-const persons = ref(1);
+const checkIn = ref(new Date().toISOString().split('T')[0]);
+const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
+const adults = ref(1);
+const children = ref(0);
 const rooms = ref([]);
-const selectedRoom = ref(null); // Change this to initially be null
+const selectedRoom = ref(null);
 const selectedRoomExtras = ref([]);
+
+async function fetchRooms() {
+  try {
+    const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
+    rooms.value = response.data;
+    selectedRoom.value = null;
+  } catch (error) {
+    console.error('Fehler beim Abrufen der Zimmerdaten:', error);
+  }
+}
 
 const roomOptions = computed(() => {
   return [
@@ -58,22 +77,8 @@ const roomOptions = computed(() => {
   ];
 });
 
-watch(selectedRoom, () => {
-  updateRoomExtras();
-});
-
-async function fetchRooms() {
-  try {
-    const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
-    rooms.value = response.data;
-    selectedRoom.value = null;  // Setzen Sie dies auf null
-  } catch (error) {
-    console.error('Fehler beim Abrufen der Zimmerdaten:', error);
-  }
-}
-
 function updateRoomExtras() {
-  if (selectedRoom.value !== null) {  // Fügen Sie diese Überprüfung hinzu
+  if (selectedRoom.value !== null) {
     const selected = rooms.value.find(room => room.id === selectedRoom.value);
     selectedRoomExtras.value = [];
 
@@ -86,21 +91,25 @@ function updateRoomExtras() {
       }
     }
   } else {
-    selectedRoomExtras.value = [];  // Setzen Sie es auf ein leeres Array, wenn selectedRoom null ist
+    selectedRoomExtras.value = [];
   }
 }
-
 
 function submitForm() {
   const bookingDetails = {
     checkIn: checkIn.value,
     checkOut: checkOut.value,
-    persons: persons.value,
+    adults: adults.value,
+    children: children.value,
     room: rooms.value.find(room => room.id === selectedRoom.value),
   };
 
   console.log('Ihre Buchungsdetails:', bookingDetails);
 }
+
+watch(selectedRoom, () => {
+  updateRoomExtras();
+});
 
 onMounted(() => {
   fetchRooms();
