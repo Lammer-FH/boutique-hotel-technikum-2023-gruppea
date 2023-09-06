@@ -1,6 +1,11 @@
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
+  <div class="team">
+    <h1>Unser Team</h1>
+    <ul>
+    <li>Roman Hoeller</li>
+    <li>Kadir Yalcin</li>
+    <li>Gergő Jeles</li>
+  </ul>
   </div>
 </template>
 
