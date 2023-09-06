@@ -37,6 +37,7 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
+import { watch } from 'vue';
 
 // Initialize ref variables
 const firstOption = ref({ text: 'Wählen Sie ein Zimmer', value: null }); // New variable
@@ -57,6 +58,10 @@ const roomOptions = computed(() => {
   ];
 });
 
+watch(selectedRoom, () => {
+  updateRoomExtras();
+});
+
 async function fetchRooms() {
   try {
     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
@@ -68,18 +73,23 @@ async function fetchRooms() {
 }
 
 function updateRoomExtras() {
-  const selected = rooms.value.find(room => room.id === selectedRoom.value);
-  selectedRoomExtras.value = [];
+  if (selectedRoom.value !== null) {  // Fügen Sie diese Überprüfung hinzu
+    const selected = rooms.value.find(room => room.id === selectedRoom.value);
+    selectedRoomExtras.value = [];
 
-  if (selected && selected.extras) {
-    for (const extra of selected.extras) {
-      const [key, value] = Object.entries(extra)[0];
-      if (value === 1) {
-        selectedRoomExtras.value.push(key);
+    if (selected && selected.extras) {
+      for (const extra of selected.extras) {
+        const [key, value] = Object.entries(extra)[0];
+        if (value === 1) {
+          selectedRoomExtras.value.push(key);
+        }
       }
     }
+  } else {
+    selectedRoomExtras.value = [];  // Setzen Sie es auf ein leeres Array, wenn selectedRoom null ist
   }
 }
+
 
 function submitForm() {
   const bookingDetails = {
