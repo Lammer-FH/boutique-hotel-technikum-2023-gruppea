@@ -7,11 +7,11 @@
     </b-row>
     <b-form @submit.prevent="submitForm">
       <b-form-group label="Check-in Datum:" label-for="checkIn">
-        <b-form-input type="date" id="checkIn" v-model="checkIn" required></b-form-input>
+        <b-form-input type="date" id="checkIn" v-model="checkIn" :min="minDate" required></b-form-input>
       </b-form-group>
 
       <b-form-group label="Check-out Datum:" label-for="checkOut">
-        <b-form-input type="date" id="checkOut" v-model="checkOut" required></b-form-input>
+        <b-form-input type="date" id="checkOut" v-model="checkOut" :min="minDate" required></b-form-input>
       </b-form-group>
 
       <b-form-group label="Anzahl der Personen:" label-for="persons">
@@ -39,6 +39,7 @@ import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 
 // Initialize ref variables
+const minDate = ref(new Date().toISOString().split('T')[0]);  // Current Date
 const checkIn = ref(new Date().toISOString().split('T')[0]);  // Current Date
 const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]); // Next Day
 const persons = ref(1);
