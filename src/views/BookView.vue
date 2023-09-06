@@ -19,47 +19,42 @@
       </b-form-group>
 
       <b-form-group label="Zimmerauswahl:" label-for="room">
-        <b-form-select id="room" v-model="selectedRoom" :options="roomOptions"></b-form-select>
+        <b-form-select id="room" v-model="selectedRoom" :options="roomOptions" @change="updateRoomExtras"></b-form-select>
       </b-form-group>
+
+      <div v-if="selectedRoomExtras.length > 0">
+        <h3>Ausgewählte Zimmer-Eigenschaften:</h3>
+        <ul>
+          <li v-for="extra in selectedRoomExtras" :key="extra">{{ extra }}</li>
+        </ul>
+      </div>
 
       <b-button type="submit" variant="primary">Buchen</b-button>
     </b-form>
   </div>
-  
 </template>
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import axios from 'axios'; // Vergewissern Sie sich, dass axios in Ihrem Projekt installiert ist
+import axios from 'axios';
 
-function getTodayDate() {
-  const today = new Date();
-  const dd = String(today.getDate()).padStart(2, '0');
-  const mm = String(today.getMonth() + 1).padStart(2, '0'); // Januar ist 0!
-  const yyyy = today.getFullYear();
-
-  return `${yyyy}-${mm}-${dd}`;
-}
-
-const checkIn = ref(getTodayDate());
-const checkOut = ref(getTodayDate()+1);
+// Initialize ref variables
+const checkIn = ref(new Date().toISOString().split('T')[0]);  // Current Date
+const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]); // Next Day
 const persons = ref(1);
-const rooms = ref([]); // Ein leeres Array für die Zimmerdaten
-const selectedRoom = ref(null); // Wird später aktualisiert
+const rooms = ref([]);
+const selectedRoom = ref(null);
+const selectedRoomExtras = ref([]);
 
 async function fetchRooms() {
   try {
     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
     rooms.value = response.data;
-    selectedRoom.value = rooms.value[0]?.id; // Setzen Sie das erste Zimmer als Standardauswahl
+    selectedRoom.value = rooms.value[0]?.id;
   } catch (error) {
     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
   }
 }
-
-onMounted(() => {
-  fetchRooms(); // Zimmerdaten beim Laden der Komponente abrufen
-});
 
 const roomOptions = computed(() => {
   return rooms.value.map(room => ({
@@ -67,6 +62,20 @@ const roomOptions = computed(() => {
     text: `${room.roomsName} - ${room.pricePerNight} € pro Nacht`,
   }));
 });
+
+function updateRoomExtras() {
+  const selected = rooms.value.find(room => room.id === selectedRoom.value);
+  selectedRoomExtras.value = [];
+
+  if (selected && selected.extras) {
+    for (const extra of selected.extras) {
+      const [key, value] = Object.entries(extra)[0];
+      if (value === 1) {
+        selectedRoomExtras.value.push(key);
+      }
+    }
+  }
+}
 
 function submitForm() {
   const bookingDetails = {
@@ -77,6 +86,17 @@ function submitForm() {
   };
 
   console.log('Ihre Buchungsdetails:', bookingDetails);
-  // Fügen Sie hier den Code für die API-Anfrage oder andere Aktionen ein
 }
+
+onMounted(() => {
+  fetchRooms();
+  updateRoomExtras();
+});
 </script>
+
+<style>
+/* Benutzerdefinierte CSS-Regel, um die Schriftfarbe der ausgewählten Option zu ändern */
+.select-selected {
+  color: rgba(0, 0, 0, 0.5);
+}
+</style>
