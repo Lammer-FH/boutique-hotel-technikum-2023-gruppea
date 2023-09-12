@@ -33,3 +33,67 @@ a,
     padding: 0 2rem;
   }
 }
+
+i.bi {
+  font-size: 1.5rem; /* Größe anpassen */
+  margin-right: 10px; /* Abstand hinzufügen */
+  color: #007bff; /* Farbe ändern */
+}
+
+/* Standardgröße der Icons */
+.bi {
+  font-size: 1.5rem;
+  color: #007bff; /* Farbe ändern */
+}
+
+/* Größe der Icons auf Mobilgeräten ändern */
+@media (max-width: 767px) {
+  .bi {
+    font-size: 1rem;
+    color: #007bff; /* Farbe ändern */
+  }
+}
+
+.icon-list {
+  list-style: none;
+  padding: 0;
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  position: relative; /* Damit der Tooltip relativ zu diesem Button positioniert werden kann */
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Positionieren Sie den Tooltip oberhalb des Elements */
+  left: 50%;
+  margin-left: -60px; /* Negative Halbbreite des Tooltips, um ihn zu zentrieren */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.icon-button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+
+ul {
+  list-style-type: none; /* Entfernt die Aufzählungszeichen */
+  padding: 0; /* Entfernt das Standard-Padding */
+  display: flex; /* Verwendet Flexbox, um die Elemente nebeneinander anzuzeigen */
+  gap: 10px; /* Fügt einen Abstand zwischen den Icons hinzu */
+}

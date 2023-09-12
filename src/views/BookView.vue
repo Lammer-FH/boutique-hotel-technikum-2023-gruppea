@@ -34,9 +34,14 @@
       </b-form-group>
 
       <div v-if="selectedRoomExtras.length > 0">
-        <h3>Ausgewählte Zimmer-Eigenschaften:</h3>
-        <ul>
-          <li v-for="extra in selectedRoomExtras" :key="extra">{{ extra }}</li>
+        <h3>Extra Eigenschaften</h3>
+        <ul class="icon-list">
+          <li v-for="extra in selectedRoomExtras" :key="extra">
+            <button class="icon-button">
+              <i v-if="extraToIcon(extra)" :class="`bi bi-${extraToIcon(extra)}`"></i>
+              <span class="tooltip-text">{{ extra }}</span>
+            </button>
+          </li>
         </ul>
       </div>
 
@@ -47,6 +52,8 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
+import { } from 'vue';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Stil für die Icons
 import axios from 'axios';
 
 const checkIn = ref(new Date().toISOString().split('T')[0]);
@@ -61,24 +68,15 @@ async function fetchRooms() {
   try {
     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
     rooms.value = response.data;
-    selectedRoom.value = null;
+    selectedRoom.value = rooms.value[0]?.id || null;  // Setzen Sie das erste Zimmer als Standardauswahl
+    updateRoomExtras();  // Aktualisieren Sie die Zimmer-Extras basierend auf dem ausgewählten Zimmer
   } catch (error) {
     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
   }
 }
 
-const roomOptions = computed(() => {
-  return [
-    { text: 'Wählen Sie ein Zimmer', value: null },
-    ...rooms.value.map(room => ({
-      value: room.id,
-      text: `${room.roomsName} - ${room.pricePerNight} € pro Nacht`,
-    }))
-  ];
-});
-
 function updateRoomExtras() {
-  if (selectedRoom.value !== null) {
+  if (selectedRoom.value) {
     const selected = rooms.value.find(room => room.id === selectedRoom.value);
     selectedRoomExtras.value = [];
 
@@ -95,14 +93,29 @@ function updateRoomExtras() {
   }
 }
 
+
+const roomOptions = computed(() => {
+  return [
+    { text: 'Wählen Sie ein Zimmer', value: null },
+    ...rooms.value.map(room => ({
+      value: room.id,
+      text: `${room.roomsName} - ${room.pricePerNight} € pro Nacht`,
+    }))
+  ];
+});
+
+const validExtras = computed(() => {
+  return selectedRoomExtras.value.filter(extra => extraToIcon(extra));
+});
+
 function submitForm() {
   const selectedRoomDetails = rooms.value.find(room => room.id === selectedRoom.value);
   const numberOfNights = (new Date(checkOut.value) - new Date(checkIn.value)) / (24 * 60 * 60 * 1000);
   const totalPrice = numberOfNights * selectedRoomDetails.pricePerNight * (adults.value + children.value * 0.5); // Angenommen Kinder kosten 50% des Erwachsenenpreises
-  
+
   let bookingMessage = `Sie haben das Zimmer ${selectedRoomDetails.roomsName} gebucht.\n`;
   bookingMessage += `Anzahl der Erwachsenen: ${adults.value}\n`;
-  
+
   if (children.value > 0) {
     bookingMessage += `Anzahl der Kinder: ${children.value}\n`;
   }
@@ -112,6 +125,21 @@ function submitForm() {
   console.log('Ihre Buchungsdetails:', bookingMessage);
   alert(bookingMessage);  // Zeigt eine Popup-Nachricht mit den Buchungsdetails
 }
+
+function extraToIcon(extraName) {
+  const mapping = {
+    "bathroom": "house-door",
+    "minibar": "cup",
+    "television": "tv",
+    "livingroom": "couch",
+    "aircondition": "thermometer-high",
+    "wifi": "wifi",
+    "breakfast": "egg-fried",
+    "handicapped accessible": "wheelchair"
+  };
+  return mapping[extraName] || null;
+}
+
 
 watch(selectedRoom, () => {
   updateRoomExtras();
