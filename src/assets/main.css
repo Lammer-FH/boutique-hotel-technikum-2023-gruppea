@@ -29,8 +29,15 @@ a,
 
   #app {
     display: grid;
+    padding: 3rem 3rem;
+    place-self: flex-start;
+    place-items: baseline;
+
+    /*
+    display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
+    */
   }
 }
 
