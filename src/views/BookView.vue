@@ -5,14 +5,25 @@
         <h1>Hotelbuchung</h1>
       </b-col>
     </b-row>
-    <b-form @submit.prevent="submitForm">
-      <b-form-group label="Check-in Datum:" label-for="checkIn">
-        <b-form-input type="date" id="checkIn" v-model="checkIn" required></b-form-input>
-      </b-form-group>
 
-      <b-form-group label="Check-out Datum:" label-for="checkOut">
-        <b-form-input type="date" id="checkOut" v-model="checkOut" required></b-form-input>
-      </b-form-group>
+    <b-form @submit.prevent="submitForm">
+      <b-form @submit.prevent="submitForm">
+        <b-row>
+          <!-- Check-in Datum -->
+          <b-col md="6">
+            <b-form-group label="Check-in Datum:" label-for="checkIn">
+              <b-form-input type="date" id="checkIn" v-model="checkIn" required></b-form-input>
+            </b-form-group>
+          </b-col>
+
+          <!-- Check-out Datum -->
+          <b-col md="6">
+            <b-form-group label="Check-out Datum:" label-for="checkOut">
+              <b-form-input type="date" id="checkOut" v-model="checkOut" required></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </b-form>
 
       <b-row>
         <b-col md="6">
@@ -29,7 +40,7 @@
         </b-col>
       </b-row>
 
-      <b-form-group label="Zimmerauswahl:" label-for="room">
+      <b-form-group class="mt-3" label="Zimmerauswahl:" label-for="room">
         <b-form-select id="room" v-model="selectedRoom" :options="roomOptions" @change="updateRoomExtras"></b-form-select>
       </b-form-group>
 
