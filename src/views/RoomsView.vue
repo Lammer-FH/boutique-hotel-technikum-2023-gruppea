@@ -1,196 +1,127 @@
 <template>
   <div class="rooms">
-    <h1>Our Rooms</h1>
-
-    <div class="masonry">
-      <div class="image-container" v-for="room in paginatedRooms" :key="room.id" @click="openModal(room)">
-        <img :src="`src/images/rooms/${room.roomsNumber}.jpg`" :alt="room.roomsNumber"
-          :title="`${room.roomsName} - Room (${room.roomsNumber})`">
+    <h1 class="text-center">Find Out what kind of room you prefer!</h1>
+    <div class="room-grid">
+      <div v-for="room in firstFiveRooms" :key="room.id" class="room-box">
+        <div class="room-info">
+          Room {{ room.roomsNumber }}<br>
+          {{ room.roomsName.replace('Default ', '') }}
+        </div>
+        <img :src="`src/images/rooms/${room.roomsNumber}.jpg`" alt="Room Image" class="room-image">
+        <div class="room-description">
+          {{ getDescription(room.roomsName) }}
+        </div>
+        <div class="room-extras">
+          <i v-for="extra in room.extras" :key="extra">
+            <button class="icon-button">
+              <i v-if="extraToIcon(extra)" :class="`bi bi-${extraToIcon(extra)}`"></i>
+              <span class="tooltip-text">{{ extra }}</span>
+            </button>
+          </i>
+        </div>
       </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal" v-if="isModalOpen">
-      <div class="modal-content">
-        <span class="close" @click="closeModal">&times;</span>
-        <img :src="`src/images/rooms/${currentRoom.roomsNumber}.jpg`" :alt="currentRoom.roomsNumber" @click="closeModal">
-        <!-- Hinzufügen des @click Handlers hier -->
-      </div>
-    </div>
-
-    <!-- Paginierung -->
-    <div class="pagination">
-      <button @click="previousPage" :disabled="currentPage <= 0">Previous</button>
-      <button @click="nextPage" :disabled="currentPage >= maxPages - 1">Next</button>
     </div>
   </div>
 </template>
 
-<script>
+<script setup>
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Stil für die Icons
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
-export default {
-  data() {
-    return {
-      rooms: [],
-      currentPage: 0,
-      roomsPerPage: 5,
-      isModalOpen: false,
-      currentRoom: null
-    };
-  },
-  async created() {
-    try {
-      const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
-      this.rooms = response.data;
-    } catch (error) {
-      console.error("Error fetching rooms:", error);
-    }
-  },
-  computed: {
-    paginatedRooms() {
-      const start = this.currentPage * this.roomsPerPage;
-      const end = start + this.roomsPerPage;
-      return this.rooms.slice(start, end);
-    },
-    maxPages() {
-      return Math.ceil(this.rooms.length / this.roomsPerPage);
-    }
-  },
-  methods: {
-    nextPage() {
-      if (this.currentPage < this.maxPages - 1) this.currentPage++;
-    },
-    previousPage() {
-      if (this.currentPage > 0) this.currentPage--;
-    },
-    openModal(room) {
-      this.currentRoom = room;
-      this.isModalOpen = true;
-    },
-    closeModal() {
-      this.isModalOpen = false;
-      this.currentRoom = null;
-    }
+const rooms = ref([]);
+const firstFiveRooms = ref([]);
+
+const fetchRooms = async () => {
+  try {
+    const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
+    rooms.value = response.data;
+    firstFiveRooms.value = rooms.value.slice(0, 5);
+  } catch (error) {
+    console.error('Error fetching rooms:', error);
   }
-}
+};
+
+const getDescription = (name) => {
+  if (name === "Double Bedroom") {
+    return "Das Genießerzimmer für Paare im großzügigen Doppelbett";
+  } else if (name === "Single Bedroom") {
+    return "Das perfekte Zimmer für Alleinreisende";
+  } else if (name === "Suite") {
+    return "Luxuriöser Raum für diejenigen, die das Beste wollen";
+  } else {
+    return "Ein komfortables Zimmer, perfekt für Ihren Aufenthalt";
+  }
+};
+
+const extraToIcon = (extraName) => {
+  const mapping = {
+    "bathroom": "house-door",
+    "minibar": "cup",
+    "television": "tv",
+    "livingroom": "couch",
+    "aircondition": "thermometer-high",
+    "wifi": "wifi",
+    "breakfast": "egg-fried",
+    "handicapped accessible": "wheelchair"
+  };
+  const key = Object.keys(extraName)[0];
+  return mapping[key] || "bi-question";
+};
+
+onMounted(() => {
+  fetchRooms();
+});
 </script>
 
-<style>
-/* Modal Styles */
-.modal {
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  position: relative;
-  padding: 20px;
-  width: 80%;
-  max-width: 500px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.close {
-  color: white;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.close:hover,
-.close:focus {
-  color: #000;
-  background-color: #fff;
-}
-
-.modal-content img {
+<style scoped>
+.room-image {
   width: 100%;
-  object-fit: contain;
-}
-
-@keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-
-.pagination {
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.masonry {
-  display: grid;
-  grid-gap: 16px;
-  grid-template-columns: repeat(auto-fill, minmax(18%, 1fr));
-  grid-auto-rows: 100%;
-}
-
-.masonry .image-container {
-  position: relative;
-  overflow: visible;
-  border-radius: 8px;
-  transition: transform 0.3s;
-}
-
-.masonry .image-container:hover {
-  z-index: 20;
-  /* Bring the hovered item to the front */
-}
-
-.masonry img {
-  width: 100%;
-  height: 500px;
+  height: 150px;
   object-fit: cover;
-  transition: transform 0.3s;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-.masonry .image-container:hover img {
-  transform: scale(0.9);
+.text-center {
+  text-align: center;
 }
 
-.masonry .original-image {
-  position: absolute;
-  top: 0;
-  left: 100%;
-  width: 00px;
-  height: auto;
-  object-fit: contain;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  z-index: 10;
-  transition: left 0.3s;
+.room-grid {
+  display: flex;
+  flex-wrap: wrap;
+  /* Ermöglicht das Umbruchverhalten */
+  gap: 16px;
+  /* Abstand zwischen den Elementen */
 }
 
-.masonry .image-container:hover .original-image {
-  left: calc(100% + 10px);
+.room-grid>div {
+  flex: 1;
+  min-width: calc(18% - 16px);
+  /* Berücksichtigt den Abstand von 16px */
+  max-width: 100%;
+  box-sizing: border-box;
+  /* Damit der Abstand und die Ränder im angegebenen Breiten-/Höhenwert enthalten sind */
+}
+
+.room-box {
+  display: flex;
+  flex-direction: column;
+  /* Organisiert die Kindelemente vertikal */
+  align-items: center;
+  /* Zentriert die Kindelemente horizontal */
+  gap: 8px;
+  /* Abstand zwischen den Kindelementen */
+}
+
+.room-info,
+.room-description {
+  text-align: center;
+  /* Zentriert den Text */
+  width: 100%;
+  /* Nimmt die gesamte verfügbare Breite ein */
+}
+
+.room-extras i {
+  font-size: 24px;
+  margin: 0 5px;
 }
 </style>
