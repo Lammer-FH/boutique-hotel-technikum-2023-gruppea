@@ -155,11 +155,11 @@ function extraToIcon(extraName) {
     "bathroom": "house-door",
     "minibar": "cup",
     "television": "tv",
-    "livingroom": "couch",
+    "livingroom": "minecart",
     "aircondition": "thermometer-high",
     "wifi": "wifi",
     "breakfast": "egg-fried",
-    "handicapped accessible": "wheelchair"
+    "handicapped accessible": "person-wheelchair"
   };
   return mapping[extraName] || null;
 }

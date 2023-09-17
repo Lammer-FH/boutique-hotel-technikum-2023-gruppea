@@ -1,23 +1,25 @@
 <template>
-  <div class="rooms">
-    <h1 class="text-center">Find Out what kind of room you prefer!</h1>
-    <div class="room-grid">
-      <div v-for="room in firstFiveRooms" :key="room.id" class="room-box">
-        <div class="room-info">
-          Room {{ room.roomsNumber }}<br>
-          {{ room.roomsName.replace('Default ', '') }}
-        </div>
-        <img :src="`src/images/rooms/${room.roomsNumber}.jpg`" alt="Room Image" class="room-image">
-        <div class="room-description">
-          {{ getDescription(room.roomsName) }}
-        </div>
-        <div class="room-extras">
-          <i v-for="extra in room.extras" :key="extra">
-            <button class="icon-button">
-              <i v-if="extraToIcon(extra)" :class="`bi bi-${extraToIcon(extra)}`"></i>
-              <span class="tooltip-text">{{ extra }}</span>
-            </button>
-          </i>
+  <div class="container mt-5">
+    <div class="rooms">
+      <h1 class="text-center">Find Out what kind of room you prefer!</h1>
+      <div class="room-grid">
+        <div v-for="room in firstFiveRooms" :key="room.id" class="room-box">
+          <div class="room-info">
+            Room {{ room.roomsNumber }}<br>
+            {{ room.roomsName.replace('Default ', '') }}
+          </div>
+          <img :src="`src/images/rooms/${room.roomsNumber}.jpg`" alt="Room Image" class="room-image">
+          <div class="room-description">
+            {{ getDescription(room.roomsName) }}
+          </div>
+          <div class="room-extras">
+            <i v-for="extraObj in room.extras" :key="extraObj">
+              <button class="icon-button">
+                <i v-if="extraToIcon(extraObj)" :class="`bi bi-${extraToIcon(extraObj)}`"></i>
+                <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
+              </button>
+            </i>
+          </div>
         </div>
       </div>
     </div>
@@ -59,11 +61,11 @@ const extraToIcon = (extraName) => {
     "bathroom": "house-door",
     "minibar": "cup",
     "television": "tv",
-    "livingroom": "couch",
+    "livingroom": "minecart",
     "aircondition": "thermometer-high",
     "wifi": "wifi",
     "breakfast": "egg-fried",
-    "handicapped accessible": "wheelchair"
+    "handicapped accessible": "person-wheelchair"
   };
   const key = Object.keys(extraName)[0];
   return mapping[key] || "bi-question";
@@ -85,33 +87,6 @@ onMounted(() => {
   text-align: center;
 }
 
-.room-grid {
-  display: flex;
-  flex-wrap: wrap;
-  /* Ermöglicht das Umbruchverhalten */
-  gap: 16px;
-  /* Abstand zwischen den Elementen */
-}
-
-.room-grid>div {
-  flex: 1;
-  min-width: calc(18% - 16px);
-  /* Berücksichtigt den Abstand von 16px */
-  max-width: 100%;
-  box-sizing: border-box;
-  /* Damit der Abstand und die Ränder im angegebenen Breiten-/Höhenwert enthalten sind */
-}
-
-.room-box {
-  display: flex;
-  flex-direction: column;
-  /* Organisiert die Kindelemente vertikal */
-  align-items: center;
-  /* Zentriert die Kindelemente horizontal */
-  gap: 8px;
-  /* Abstand zwischen den Kindelementen */
-}
-
 .room-info,
 .room-description {
   text-align: center;
@@ -123,5 +98,47 @@ onMounted(() => {
 .room-extras i {
   font-size: 24px;
   margin: 0 5px;
+}
+
+.room-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.room-box {
+  flex: 1;
+  min-width: calc(20% - 16px);
+  /* Ändern Sie die Prozentsätze je nach Anzahl der sichtbaren room-boxes */
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 1025px) {
+  .room-box {
+    min-width: calc(20% - 16px);
+    /* Anzahl der sichtbaren room-boxes ändern */
+  }
+}
+
+@media (max-width: 1024px) {
+  .room-box {
+    min-width: calc(33.33% - 16px);
+    /* Anzahl der sichtbaren room-boxes ändern */
+  }
+}
+
+@media (max-width: 768px) {
+  .room-box {
+    min-width: calc(50% - 16px);
+    /* Anzahl der sichtbaren room-boxes ändern */
+  }
+}
+
+@media (max-width: 480px) {
+  .room-box {
+    min-width: 100%;
+    /* Zeigen Sie alle room-boxes an */
+  }
 }
 </style>
