@@ -119,6 +119,7 @@ onMounted(() => {
 .room-extras i {
   font-size: 24px;
   margin: 0 5px;
+  color:#4383e2
 }
 
 .room-grid {
