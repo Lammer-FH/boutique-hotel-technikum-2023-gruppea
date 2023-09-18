@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-5">
     <div class="rooms">
-      <h1 class="text-center">Find Out what kind of room you prefer!</h1>
+      <h1 class="text-center">Find Out What Kind of Room You Prefer!</h1>
       <div class="room-grid">
         <div v-for="room in firstFiveRooms" :key="room.id" class="room-box">
           <div class="room-info">
@@ -21,6 +21,10 @@
             </i>
           </div>
         </div>
+        <div class="load-more-container">
+          <button @click="loadMoreRooms" v-if="firstFiveRooms.length < rooms.length" class="btn btn-primary">Mehr Zimmer
+            anzeigen</button>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +38,12 @@ import axios from 'axios';
 const rooms = ref([]);
 const firstFiveRooms = ref([]);
 
+const loadMoreRooms = () => {
+  const currentLength = firstFiveRooms.value.length;
+  const newRooms = rooms.value.slice(currentLength, currentLength + 5);
+  firstFiveRooms.value = [...firstFiveRooms.value, ...newRooms];
+};
+
 const fetchRooms = async () => {
   try {
     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
@@ -45,11 +55,11 @@ const fetchRooms = async () => {
 };
 
 const getDescription = (name) => {
-  if (name === "Double Bedroom") {
+  if (name.includes("Double Bedroom")) {
     return "Das Genießerzimmer für Paare im großzügigen Doppelbett";
-  } else if (name === "Single Bedroom") {
+  } else if (name.includes("Single Bedroom")) {
     return "Das perfekte Zimmer für Alleinreisende";
-  } else if (name === "Suite") {
+  } else if (name.includes("Suite")) {
     return "Luxuriöser Raum für diejenigen, die das Beste wollen";
   } else {
     return "Ein komfortables Zimmer, perfekt für Ihren Aufenthalt";
@@ -85,14 +95,25 @@ onMounted(() => {
 
 .text-center {
   text-align: center;
+  margin: 0 0 32px 0;
 }
 
-.room-info,
-.room-description {
-  text-align: center;
+.room-info {
+  text-align: -webkit-left;
   /* Zentriert den Text */
   width: 100%;
   /* Nimmt die gesamte verfügbare Breite ein */
+  margin: 0 0 10px 0;
+}
+
+.room-description {
+  text-align: -webkit-left;
+  /* Zentriert den Text */
+  width: 100%;
+  /* Nimmt die gesamte verfügbare Breite ein */
+  min-height: 80px;
+  /* Fügen Sie eine Mindesthöhe hinzu, damit alle room-boxes die gleiche Höhe haben */
+  margin: 8px 0;
 }
 
 .room-extras i {
@@ -112,12 +133,17 @@ onMounted(() => {
   /* Ändern Sie die Prozentsätze je nach Anzahl der sichtbaren room-boxes */
   max-width: 100%;
   box-sizing: border-box;
+  /*eine kleine rand um die box*/
+  border: 1px solid #9bb8e5;
+  border-radius: 5px;
+  padding: 2%;
 }
 
 @media (min-width: 1025px) {
   .room-box {
     min-width: calc(20% - 16px);
     /* Anzahl der sichtbaren room-boxes ändern */
+    padding: 1%;
   }
 }
 
@@ -139,6 +165,20 @@ onMounted(() => {
   .room-box {
     min-width: 100%;
     /* Zeigen Sie alle room-boxes an */
+    padding: 3%;
   }
 }
-</style>
+
+.load-more-container {
+  flex: 1;
+  min-width: calc(20% - 16px);
+  /* Die gleiche Breite wie room-box */
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Zentrieren Sie den Inhalt horizontal und vertikal */
+  padding: 16px;
+  /* Fügen Sie Padding hinzu, um den Button zu zentrieren */
+}</style>
