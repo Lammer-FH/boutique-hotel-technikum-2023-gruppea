@@ -56,6 +56,10 @@
         </ul>
       </div>
 
+      <div v-if="selectedRoomImagePath">
+        <img :src="selectedRoomImagePath" alt="Selected Room Image" class="room-image" />
+      </div>
+
       <b-button type="submit" variant="primary">Buchen</b-button>
     </b-form>
   </div>
@@ -86,6 +90,16 @@ async function fetchRooms() {
   }
 }
 
+const selectedRoomImagePath = computed(() => {
+  if (selectedRoom.value) {
+    const selectedRoomDetails = rooms.value.find(room => room.id === selectedRoom.value);
+    if (selectedRoomDetails && selectedRoomDetails.roomsNumber) {
+      return `src/images/rooms/${selectedRoomDetails.roomsNumber}.jpg`;
+    }
+  }
+  return null;
+});
+
 function updateRoomExtras() {
   if (selectedRoom.value) {
     const selected = rooms.value.find(room => room.id === selectedRoom.value);
@@ -103,7 +117,6 @@ function updateRoomExtras() {
     selectedRoomExtras.value = [];
   }
 }
-
 
 const roomOptions = computed(() => {
   return [
@@ -142,15 +155,14 @@ function extraToIcon(extraName) {
     "bathroom": "house-door",
     "minibar": "cup",
     "television": "tv",
-    "livingroom": "couch",
+    "livingroom": "minecart",
     "aircondition": "thermometer-high",
     "wifi": "wifi",
     "breakfast": "egg-fried",
-    "handicapped accessible": "wheelchair"
+    "handicapped accessible": "person-wheelchair"
   };
   return mapping[extraName] || null;
 }
-
 
 watch(selectedRoom, () => {
   updateRoomExtras();
@@ -161,3 +173,11 @@ onMounted(() => {
   updateRoomExtras();
 });
 </script>
+
+<style scoped>
+.room-image {
+  max-height: 400px; /* Oder jede andere gewünschte Höhe */
+  width: auto;
+  margin: 0px 0px 20px 0px;     /* Die Breite passt sich automatisch an, um das Seitenverhältnis des Bildes beizubehalten. */
+}
+</style>
