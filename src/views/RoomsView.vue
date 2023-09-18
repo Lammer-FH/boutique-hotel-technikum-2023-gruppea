@@ -14,12 +14,17 @@
           </div>
           <div class="room-extras">
             <i v-for="extraObj in room.extras" :key="extraObj">
+              <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
               <button class="icon-button">
-                <i v-if="extraToIcon(extraObj)" :class="`bi bi-${extraToIcon(extraObj)}`"></i>
+                <!-- Für Font Awesome Icons -->
+                <i v-if="extraToIcon(extraObj).library === 'fa'" :class="extraToIcon(extraObj).icon"></i>
+                <!-- Für Bootstrap Icons -->
+                <i v-else-if="extraToIcon(extraObj).library === 'bi'" :class="extraToIcon(extraObj).icon"></i>
                 <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
               </button>
             </i>
           </div>
+
         </div>
         <div class="load-more-container">
           <button @click="loadMoreRooms" v-if="firstFiveRooms.length < rooms.length" class="btn btn-primary">Mehr Zimmer
@@ -34,6 +39,38 @@
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Stil für die Icons
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+
+const ROOM_TYPES = {
+  DOUBLE_BEDROOM: "Double Bedroom",
+  SINGLE_BEDROOM: "Single Bedroom",
+  SUITE: "Suite"
+};
+
+const EXTRAS = {
+  BATHROOM: "bathroom",
+  MINIBAR: "minibar",
+  TELEVISION: "television",
+  LIVINGROOM: "livingroom",
+  AIRCONDITION: "aircondition",
+  WIFI: "wifi",
+  BREAKFAST: "breakfast",
+  HANDICAPPED_ACCESSIBLE: "handicapped accessible"
+};
+
+const extraToIcon = (extraName) => {
+  const mapping = {
+    [EXTRAS.BATHROOM]: { library: 'fa', icon: 'fa fa-bath' },
+    [EXTRAS.MINIBAR]: { library: 'fa', icon: 'fa-solid fa-wine-glass' },
+    [EXTRAS.TELEVISION]: { library: 'bi', icon: 'bi-tv' },
+    [EXTRAS.LIVINGROOM]: { library: 'fa', icon: 'fa-solid fa-couch' },
+    [EXTRAS.AIRCONDITION]: { library: 'fa', icon: 'fa-solid fa-fan' },
+    [EXTRAS.WIFI]: { library: 'bi', icon: 'bi-wifi' },
+    [EXTRAS.BREAKFAST]: { library: 'fa', icon: 'fa-solid fa-mug-saucer' },
+    [EXTRAS.HANDICAPPED_ACCESSIBLE]: { library: 'bi', icon: 'bi-person-wheelchair' }
+  };
+  const key = Object.keys(extraName)[0];
+  return mapping[key] || { library: 'bi', icon: 'bi-question' };
+};
 
 const rooms = ref([]);
 const firstFiveRooms = ref([]);
@@ -55,36 +92,26 @@ const fetchRooms = async () => {
 };
 
 const getDescription = (name) => {
-  if (name.includes("Double Bedroom")) {
+  if (name.includes(ROOM_TYPES.DOUBLE_BEDROOM)) {
     return "Das Genießerzimmer für Paare im großzügigen Doppelbett";
-  } else if (name.includes("Single Bedroom")) {
+  } else if (name.includes(ROOM_TYPES.SINGLE_BEDROOM)) {
     return "Das perfekte Zimmer für Alleinreisende";
-  } else if (name.includes("Suite")) {
+  } else if (name.includes(ROOM_TYPES.SUITE)) {
     return "Luxuriöser Raum für diejenigen, die das Beste wollen";
   } else {
     return "Ein komfortables Zimmer, perfekt für Ihren Aufenthalt";
   }
 };
 
-const extraToIcon = (extraName) => {
-  const mapping = {
-    "bathroom": "house-door",
-    "minibar": "cup",
-    "television": "tv",
-    "livingroom": "minecart",
-    "aircondition": "thermometer-high",
-    "wifi": "wifi",
-    "breakfast": "egg-fried",
-    "handicapped accessible": "person-wheelchair"
-  };
-  const key = Object.keys(extraName)[0];
-  return mapping[key] || "bi-question";
-};
-
 onMounted(() => {
   fetchRooms();
 });
+
 </script>
+
+// Hier würde der vorherige Stil fortgesetzt werden.
+
+
 
 <style scoped>
 .room-image {
@@ -96,6 +123,8 @@ onMounted(() => {
 .text-center {
   text-align: center;
   margin: 0 0 32px 0;
+  
+
 }
 
 .room-info {
@@ -119,7 +148,13 @@ onMounted(() => {
 .room-extras i {
   font-size: 24px;
   margin: 0 5px;
-  color:#4383e2
+  color: #4382e2e4;
+  text-align: -webkit-center;
+  transition: color 0.3s; /* sanfter Übergang für den Farbwechsel */
+}
+
+.room-extras i:hover {
+  color: #2a66c9; /* Eine dunklere Schattierung von #4382e2 */
 }
 
 .room-grid {
@@ -182,4 +217,22 @@ onMounted(() => {
   /* Zentrieren Sie den Inhalt horizontal und vertikal */
   padding: 16px;
   /* Fügen Sie Padding hinzu, um den Button zu zentrieren */
-}</style>
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: small;
+}
+</style>
