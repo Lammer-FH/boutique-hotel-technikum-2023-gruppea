@@ -13,7 +13,7 @@
             {{ getDescription(room.roomsName) }}
           </div>
           <div class="room-extras">
-            <i v-for="extraObj in room.extras" :key="extraObj">
+            <i v-for="extraObj in filterExtras(room.extras)" :key="Object.keys(extraObj)[0]">
               <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
               <button class="icon-button">
                 <!-- Für Font Awesome Icons -->
@@ -45,6 +45,14 @@ const ROOM_TYPES = {
   SINGLE_BEDROOM: "Single Bedroom",
   SUITE: "Suite"
 };
+
+const filterExtras = (extras) => {
+  return extras.filter(extra => {
+    const key = Object.keys(extra)[0];
+    return extra[key] === 1;
+  });
+};
+
 
 const EXTRAS = {
   BATHROOM: "bathroom",
