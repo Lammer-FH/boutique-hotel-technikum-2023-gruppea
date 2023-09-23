@@ -6,7 +6,7 @@
   </b-row>
 
   <b-row>
-    <b-col md="6">
+    <b-col md="6" id="booking">
       <div class="booking-search">
         <b-form @submit.prevent="submitForm">
           <b-row>
@@ -48,7 +48,7 @@
         </b-form>
       </div>
     </b-col>
-    <b-col md="6">
+    <b-col md="6" id="imgId">
       <div v-if="selectedRoomExtras.length > 0">
         <div>
           <div v-if="selectedRoomImagePath">
@@ -220,20 +220,21 @@ onMounted(() => {
 }
 
 .tooltip-text {
-    visibility: hidden;
-    background-color: rgba(128, 128, 128, 0.202);
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
+  visibility: hidden;
+  background-color: rgba(128, 128, 128, 0.202);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
 }
+
 .room-extras {
   position: relative;
   bottom: 57px;
@@ -244,7 +245,8 @@ onMounted(() => {
   justify-content: start;
   gap: 17px;
   width: 347px;
-  font-size: 24px !important; /* oder eine andere gewünschte Größe */
+  font-size: 24px !important;
+  /* oder eine andere gewünschte Größe */
 }
 
 .room-extras i:hover {
@@ -253,13 +255,13 @@ onMounted(() => {
 }
 
 .icon-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    color: rgba(255, 255, 255, 0.600);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  color: rgba(255, 255, 255, 0.600);
 }
 
 ol,
@@ -299,6 +301,23 @@ dl[data-v-2dd5deba] {
   object-fit: cover;
   /* font-size: 100px; */
   width: -webkit-fill-available;
+}
+.booking-search {
+  width: -webkit-fill-available;
+  box-sizing: border-box;
+  /*eine kleine rand um die box*/
+  border: 1px solid #9bb8e5;
+  border-radius: 10px;
+  padding: 2%;
+}
+
+img{
+  border-radius: 10px;
+  background: rgba(9, 9, 9, 0.45);
+  width: 100% !important;
+  height: 442px;
+  flex-shrink: 0;
+  object-fit: cover;
 }
 
 /**********  @media **********/
@@ -362,6 +381,7 @@ dl[data-v-2dd5deba] {
     border-radius: 5px;
     padding: 2%;
   }
+
 }
 
 @media (max-width: 480px) {
@@ -371,10 +391,18 @@ dl[data-v-2dd5deba] {
     padding: 2%;
   }
 
-  .img {
+  img {
+    border-radius: 10px;
+    background: rgba(9, 9, 9, 0.45);
+    /* width: 330px !important; */
+    height: 442px;
+    flex-shrink: 0;
     width: 100% !important;
-    height: 300px;
-    object-fit: cover;
   }
+
+  .room-extras[data-v-2dd5deba] {
+    font-size: 21px !important;
+}
+
 }
 </style>
