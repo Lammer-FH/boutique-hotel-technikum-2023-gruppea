@@ -219,6 +219,21 @@ onMounted(() => {
   position: relative;
 }
 
+.tooltip-text {
+    visibility: hidden;
+    background-color: rgba(128, 128, 128, 0.202);
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
 .room-extras {
   position: relative;
   bottom: 57px;
@@ -229,7 +244,6 @@ onMounted(() => {
   justify-content: start;
   gap: 17px;
   width: 347px;
-  color: whitesmoke !important;
   font-size: 24px !important; /* oder eine andere gewünschte Größe */
 }
 
