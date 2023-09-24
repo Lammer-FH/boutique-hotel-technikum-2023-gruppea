@@ -302,6 +302,7 @@ dl[data-v-2dd5deba] {
   /* font-size: 100px; */
   width: -webkit-fill-available;
 }
+
 .booking-search {
   width: -webkit-fill-available;
   box-sizing: border-box;
@@ -311,7 +312,7 @@ dl[data-v-2dd5deba] {
   padding: 2%;
 }
 
-img{
+img {
   border-radius: 10px;
   background: rgba(9, 9, 9, 0.45);
   width: 100% !important;
@@ -320,14 +321,35 @@ img{
   object-fit: cover;
 }
 
+div#imgId {
+  margin-top: inherit;
+}
+
 /**********  @media **********/
 
 @media (min-width: 1025px) {
 
   img {
-    width: 350px !important;
-    height: 360px;
+    height: 358.53px;
     object-fit: cover;
+  }
+
+  .room-extras {
+    position: relative;
+    bottom: 69px;
+    left: 4%;
+    transform: translateX(0%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 26px !important;
+    width: 452px;
+    font-size: 200% !important;
+  }
+
+
+  div#imgId {
+    margin-top: 0;
   }
 
   .booking-search {
@@ -335,7 +357,6 @@ img{
     box-sizing: border-box;
     /*eine kleine rand um die box*/
     border: 1px solid #9bb8e5;
-    border-radius: 5px;
     padding: 2%;
   }
 
@@ -351,37 +372,78 @@ img{
     display: flex;
     align-items: center;
   }
-
 }
 
 @media (max-width: 1024px) {
   img {
-    width: 347px !important;
-    height: 360px;
+    height: 377.16px;
     object-fit: cover;
   }
 
+  div#imgId {
+    margin-top: 0;
+  }
+
   .booking-search {
     width: -webkit-fill-available;
     box-sizing: border-box;
     /*eine kleine rand um die box*/
     border: 1px solid #9bb8e5;
-    border-radius: 5px;
     padding: 2%;
   }
 
+  .room-extras {
+    position: relative;
+    bottom: 69px;
+    left: 1%;
+    transform: translateX(0%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 26px !important;
+    width: 452px;
+    font-size: 120% !important;
+
+  }
 }
 
 @media (max-width: 768px) {
+  #app {
+    max-width: 1280px;
+    margin: 0px 20px 0px 20px;
+    padding: 2rem;
+    font-weight: normal;
+  }
+
   .booking-search {
     width: -webkit-fill-available;
     box-sizing: border-box;
     /*eine kleine rand um die box*/
     border: 1px solid #9bb8e5;
-    border-radius: 5px;
     padding: 2%;
   }
 
+  img {
+    border-radius: 10px;
+    background: rgba(9, 9, 9, 0.45);
+    /* width: 330px !important; */
+    height: 360.03px;
+    flex-shrink: 0;
+    width: 100% !important;
+  }
+
+  .room-extras {
+    position: relative;
+    bottom: 59px;
+    left: 8%;
+    transform: translateX(0%);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    gap: 14px !important;
+    width: 442px;
+    font-size: 120% !important;
+  }
 }
 
 @media (max-width: 480px) {
@@ -400,9 +462,16 @@ img{
     width: 100% !important;
   }
 
-  .room-extras[data-v-2dd5deba] {
-    font-size: 21px !important;
-}
-
+  .room-extras {
+    position: relative;
+    bottom: 66px;
+    left: 4%;
+    transform: translateX(0%);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 19px !important;
+    width: 416px;
+    font-size: 133% !important;
+  }
 }
 </style>
