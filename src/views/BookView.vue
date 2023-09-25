@@ -360,18 +360,6 @@ div#imgId {
     padding: 2%;
   }
 
-  .room-extras {
-    justify-content: space-evenly;
-    gap: 20px;
-    flex-wrap: wrap;
-    list-style: none;
-    padding-left: 0;
-    margin-top: 12px;
-    margin-bottom: 1rem;
-    padding: 1%;
-    display: flex;
-    align-items: center;
-  }
 }
 
 @media (max-width: 1024px) {
