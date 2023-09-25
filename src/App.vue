@@ -1,16 +1,30 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { ref } from 'vue';
+import { RouterLink, RouterView } from 'vue-router';
+import HelloWorld from './components/HelloWorld.vue';
+const showSidebar = ref(false);
+const toggleSidebar = () => {
+  showSidebar.value = !showSidebar.value;
+}
 </script>
 
 <template>
   <header>
+    <button @click="toggleSidebar" class="btn btn-primary">☰</button>
+    <div v-if="showSidebar" class="sidebar">
+      <button @click="toggleSidebar" class="close-btn">✖</button>
+      <RouterLink to="/" @click.native="toggleSidebar">Home</RouterLink>
+      <RouterLink to="/book" @click.native="toggleSidebar">Book</RouterLink>
+      <RouterLink to="/rooms" @click.native="toggleSidebar">Rooms</RouterLink>
+      <RouterLink to="/about" @click.native="toggleSidebar">About</RouterLink>
+      <RouterLink to="/impressum" @click.native="toggleSidebar">Impressum</RouterLink>
+    </div>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
     <div class="wrapper">
-      <HelloWorld msg="Gruppe A - Technikum Hotel" />
-
-      <nav>
+      <HelloWorld msg="HOTEL TECHNIKUM-A" />
+    </div>
+    <div>
+      <nav id="mainnav">
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/book">Book</RouterLink>
         <RouterLink to="/rooms">Rooms</RouterLink>
@@ -19,70 +33,104 @@ import HelloWorld from './components/HelloWorld.vue'
       </nav>
     </div>
   </header>
-
-  <RouterView />
+  <RouterView :showSidebar="showSidebar" />
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.btn {
+  display: none;
+}
+
+.sidebar {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 21.125rem;
+  height: 100vh;
+  /* background-color: #111; */
+  /* background-color: hsla(160, 100%, 37%, 1); */
+  background-color: hsl(211.43deg 28.77% 28.63%);
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 900;
+  animation: toright 0.25s;
+}
+
+.sidebar a {
+  display: block;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+.sidebar a:hover {
+  background-color: #575757;
+}
+
+@media (max-width: 768px) {
+  .btn {
+    display: block;
+  }
+}
+
+.sidebar[style*="display: block"] {
+  display: flex;
+  flex-direction: column;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+@keyframes toright {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }
 
 .logo {
-  display: block;
-  margin: 0 auto 2rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
+nav#mainnav {
   text-align: center;
-  margin-top: 2rem;
+  padding: 10px;
+  z-index: 900;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
+nav#mainnav span {
+  display: none;
 }
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
+nav#mainnav a {
+  display: none;
+  ;
 }
 
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
+/* Bei Bildschirmbreiten über 768px werden die Textbeschreibungen ausgeblendet */
+@media (min-width: 769px) {
+  nav#mainnav span {
+    display: inline;
   }
 
-  .logo {
-    margin: 0 2rem 0 0;
+  nav#mainnav a {
+    display: inline-block;
+    margin: 0 15px;
+    /* Optional: Ein bisschen Abstand zwischen den Icons */
   }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
-</style>
+}</style>
