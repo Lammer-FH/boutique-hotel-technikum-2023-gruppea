@@ -410,6 +410,9 @@ div#imgId {
     border: 1px solid #9bb8e5;
     padding: 2%;
   }
+  div#imgId {
+    margin-top: 0%;
+  }
 
   img {
     border-radius: 10px;
@@ -423,13 +426,13 @@ div#imgId {
   .room-extras {
     position: relative;
     bottom: 59px;
-    left: 8%;
+    left: 0%;
     transform: translateX(0%);
     display: flex;
     flex-wrap: wrap;
     justify-content: start;
     gap: 14px !important;
-    width: 442px;
+    width: 340px;
     font-size: 120% !important;
   }
 }
@@ -453,13 +456,13 @@ div#imgId {
   .room-extras {
     position: relative;
     bottom: 66px;
-    left: 4%;
+    left: 0%;
     transform: translateX(0%);
     display: flex;
     flex-wrap: wrap;
     gap: 19px !important;
-    width: 416px;
-    font-size: 133% !important;
+    width: 335px;
+    font-size: 125% !important;
   }
 }
 </style>
