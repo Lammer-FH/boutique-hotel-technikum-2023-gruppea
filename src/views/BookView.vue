@@ -9,36 +9,26 @@
     <b-col md="6" id="booking">
       <div class="booking-search">
         <b-form @submit.prevent="submitForm">
-          <b-row>
-            <!-- Check-in Datum -->
-            <b-col md="6">
-              <b-form-group label="Check-in Datum:" label-for="checkIn">
-                <b-form-input type="date" id="checkIn" v-model="checkIn" required></b-form-input>
-              </b-form-group>
-            </b-col>
 
-            <!-- Check-out Datum -->
-            <b-col md="6" class="test">
-              <b-form-group label="Check-out Datum:" label-for="checkOut">
-                <b-form-input type="date" id="checkOut" v-model="checkOut" required></b-form-input>
-              </b-form-group>
-            </b-col>
-          </b-row>
+          <!-- Check-in Datum -->
+          <b-form-group label="Check-in Datum:" label-for="checkIn">
+            <b-form-input type="date" id="checkIn" v-model="checkIn" required></b-form-input>
+          </b-form-group>
 
-          <b-row>
-            <b-col md="6">
-              <div>
-                <div>Erwachsene (über 12 Jahre):</div>
-                <div><b-form-input type="number" id="adults" v-model="adults" min="1" required></b-form-input></div>
-              </div>
-            </b-col>
-            <b-col md="6">
-              <div>
-                <div>Angerhörige (unter 12 Jahre):</div>
-                <div><b-form-input type="number" id="children" v-model="children" min="0" required></b-form-input></div>
-              </div>
-            </b-col>
-          </b-row>
+          <!-- Check-out Datum -->
+          <b-form-group label="Check-out Datum:" label-for="checkOut">
+            <b-form-input type="date" id="checkOut" v-model="checkOut" required></b-form-input>
+          </b-form-group>
+
+          <div>
+            <div>Erwachsene (über 12 Jahre):</div>
+            <div><b-form-input type="number" id="adults" v-model="adults" min="1" required></b-form-input></div>
+          </div>
+
+          <div>
+            <div>Angerhörige (unter 12 Jahre):</div>
+            <div><b-form-input type="number" id="children" v-model="children" min="0" required></b-form-input></div>
+          </div>
 
           <b-form-group class="mt-3" label="Zimmerauswahl:" label-for="room">
             <b-form-select id="room" v-model="selectedRoom" :options="roomOptions"
@@ -134,8 +124,6 @@ const selectedRoomImagePath = computed(() => {
 });
 
 function updateRoomExtras() {
-
-
   if (selectedRoom.value) {
     const selected = rooms.value.find(room => room.id === selectedRoom.value);
     selectedRoomExtras.value = [];
@@ -266,6 +254,16 @@ img {
 
 .icon-button {
   color: rgba(255, 255, 255, 0.550);
+}
+
+.row {
+  --bs-gutter-x: 1.5rem;
+  --bs-gutter-y: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--bs-gutter-y));
+  margin-right: calc(-0.5 * var(--bs-gutter-x));
+  margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
 
 @media (min-width: 1025px) {}
