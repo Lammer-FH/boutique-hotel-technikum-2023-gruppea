@@ -38,5 +38,20 @@ h3 {
   .greetings h3 {
     text-align: left;
   }
+
+  @media (max-width: 768px) {
+    .greetings h1,
+    .greetings h3 {
+      text-align: center;
+    }
+
+    .greetings h1 {
+      font-size: 2rem;
+    }
+
+    .greetings h3 {
+      font-size: 1rem;
+    }
+  }
 }
 </style>
