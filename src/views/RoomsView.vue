@@ -5,30 +5,47 @@
       <div class="room-grid">
         <div v-for="room in firstFiveRooms" :key="room.id" class="room-box">
           <div class="room-info">
-            Room {{ room.roomsNumber }}<br>
-            {{ room.roomsName.replace('Default ', '') }}
+            Room {{ room.roomsNumber }}<br />
+            {{ room.roomsName.replace("Default ", "") }}
           </div>
-          <img :src="`src/images/rooms/${room.roomsNumber}.jpg`" alt="Room Image" class="room-image">
+          <img
+            :src="`src/images/rooms/${room.roomsNumber}.jpg`"
+            alt="Room Image"
+            class="room-image"
+          />
           <div class="room-description">
             {{ getDescription(room.roomsName) }}
           </div>
           <div class="room-extras">
-            <i v-for="extraObj in filterExtras(room.extras)" :key="Object.keys(extraObj)[0]">
+            <i
+              v-for="extraObj in filterExtras(room.extras)"
+              :key="Object.keys(extraObj)[0]"
+            >
               <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
               <button class="icon-button">
                 <!-- Für Font Awesome Icons -->
-                <i v-if="extraToIcon(extraObj).library === 'fa'" :class="extraToIcon(extraObj).icon"></i>
+                <i
+                  v-if="extraToIcon(extraObj).library === 'fa'"
+                  :class="extraToIcon(extraObj).icon"
+                ></i>
                 <!-- Für Bootstrap Icons -->
-                <i v-else-if="extraToIcon(extraObj).library === 'bi'" :class="extraToIcon(extraObj).icon"></i>
+                <i
+                  v-else-if="extraToIcon(extraObj).library === 'bi'"
+                  :class="extraToIcon(extraObj).icon"
+                ></i>
                 <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
               </button>
             </i>
           </div>
-
         </div>
         <div class="load-more-container">
-          <button @click="loadMoreRooms" v-if="firstFiveRooms.length < rooms.length" class="btn btn-primary">Mehr Zimmer
-            anzeigen</button>
+          <button
+            @click="loadMoreRooms"
+            v-if="firstFiveRooms.length < rooms.length"
+            class="btn btn-primary"
+          >
+            Mehr Zimmer anzeigen
+          </button>
         </div>
       </div>
     </div>
@@ -36,23 +53,22 @@
 </template>
 
 <script setup>
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Stil für die Icons
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import "bootstrap-icons/font/bootstrap-icons.css"; // Stil für die Icons
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 const ROOM_TYPES = {
   DOUBLE_BEDROOM: "Double Bedroom",
   SINGLE_BEDROOM: "Single Bedroom",
-  SUITE: "Suite"
+  SUITE: "Suite",
 };
 
 const filterExtras = (extras) => {
-  return extras.filter(extra => {
+  return extras.filter((extra) => {
     const key = Object.keys(extra)[0];
     return extra[key] === 1;
   });
 };
-
 
 const EXTRAS = {
   BATHROOM: "bathroom",
@@ -62,22 +78,25 @@ const EXTRAS = {
   AIRCONDITION: "aircondition",
   WIFI: "wifi",
   BREAKFAST: "breakfast",
-  HANDICAPPED_ACCESSIBLE: "handicapped accessible"
+  HANDICAPPED_ACCESSIBLE: "handicapped accessible",
 };
 
 const extraToIcon = (extraName) => {
   const mapping = {
-    [EXTRAS.BATHROOM]: { library: 'fa', icon: 'fa fa-bath' },
-    [EXTRAS.MINIBAR]: { library: 'fa', icon: 'fa-solid fa-wine-glass' },
-    [EXTRAS.TELEVISION]: { library: 'bi', icon: 'bi-tv' },
-    [EXTRAS.LIVINGROOM]: { library: 'fa', icon: 'fa-solid fa-couch' },
-    [EXTRAS.AIRCONDITION]: { library: 'fa', icon: 'fa-solid fa-fan' },
-    [EXTRAS.WIFI]: { library: 'bi', icon: 'bi-wifi' },
-    [EXTRAS.BREAKFAST]: { library: 'fa', icon: 'fa-solid fa-mug-saucer' },
-    [EXTRAS.HANDICAPPED_ACCESSIBLE]: { library: 'bi', icon: 'bi-person-wheelchair' }
+    [EXTRAS.BATHROOM]: { library: "fa", icon: "fa fa-bath" },
+    [EXTRAS.MINIBAR]: { library: "fa", icon: "fa-solid fa-wine-glass" },
+    [EXTRAS.TELEVISION]: { library: "bi", icon: "bi-tv" },
+    [EXTRAS.LIVINGROOM]: { library: "fa", icon: "fa-solid fa-couch" },
+    [EXTRAS.AIRCONDITION]: { library: "fa", icon: "fa-solid fa-fan" },
+    [EXTRAS.WIFI]: { library: "bi", icon: "bi-wifi" },
+    [EXTRAS.BREAKFAST]: { library: "fa", icon: "fa-solid fa-mug-saucer" },
+    [EXTRAS.HANDICAPPED_ACCESSIBLE]: {
+      library: "bi",
+      icon: "bi-person-wheelchair",
+    },
   };
   const key = Object.keys(extraName)[0];
-  return mapping[key] || { library: 'bi', icon: 'bi-question' };
+  return mapping[key] || { library: "bi", icon: "bi-question" };
 };
 
 const rooms = ref([]);
@@ -91,11 +110,13 @@ const loadMoreRooms = () => {
 
 const fetchRooms = async () => {
   try {
-    const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
+    const response = await axios.get(
+      "https://boutique-hotel.helmuth-lammer.at/api/v1/rooms"
+    );
     rooms.value = response.data;
     firstFiveRooms.value = rooms.value.slice(0, 5);
   } catch (error) {
-    console.error('Error fetching rooms:', error);
+    console.error("Error fetching rooms:", error);
   }
 };
 
@@ -114,12 +135,9 @@ const getDescription = (name) => {
 onMounted(() => {
   fetchRooms();
 });
-
 </script>
 
 // Hier würde der vorherige Stil fortgesetzt werden.
-
-
 
 <style scoped>
 .room-image {
@@ -131,8 +149,6 @@ onMounted(() => {
 .text-center {
   text-align: center;
   margin: 0 0 32px 0;
-  
-
 }
 
 .room-info {
@@ -228,19 +244,19 @@ onMounted(() => {
 }
 
 .tooltip-text {
-    visibility: hidden;
-    background-color: #555;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 10px;
-    position: absolute;
-    z-index: 1;
-    bottom: 125%;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    font-size: small;
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  font-size: small;
 }
 </style>
