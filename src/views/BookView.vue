@@ -1,3 +1,10 @@
+/**
+ * @file BookView.vue
+ * @description This file contains the template and script for the BookView component, which is responsible for displaying the booking form and room details.
+ * The component fetches room data from an API and displays it in a form, allowing users to select a room and book it for a specific date range.
+ * The component also displays room details, including an image and any extras that come with the selected room.
+ * The component uses Vue.js and Bootstrap for styling and functionality.
+ */
 <template>
   <b-row class="row1">
     <b-col>
@@ -33,6 +40,7 @@
           <b-form-group class="mt-3" label="Zimmerauswahl:" label-for="room">
             <b-form-select id="room" v-model="selectedRoom" :options="roomOptions"
               @change="updateRoomExtras"></b-form-select>
+
           </b-form-group>
           <b-button type="submit" variant="primary">Buchen</b-button>
         </b-form>
@@ -71,6 +79,7 @@
 import { ref, onMounted, computed, watch } from 'vue';
 import 'bootstrap-icons/font/bootstrap-icons.css'; // Stil für die Icons
 import axios from 'axios';
+import bookingsData from '../bookings.json';
 
 const checkIn = ref(new Date().toISOString().split('T')[0]);
 const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
@@ -79,6 +88,35 @@ const children = ref(0);
 const rooms = ref([]);
 const selectedRoom = ref(null);
 const selectedRoomExtras = ref([]);
+
+function getDatesBetween(startDate, endDate) {
+  const dates = [];
+  let currentDate = new Date(startDate);
+  const stopDate = new Date(endDate);
+
+  while (currentDate <= stopDate) {
+    dates.push(new Date(currentDate).toISOString().split('T')[0]);
+    currentDate.setDate(currentDate.getDate() + 1);
+  }
+  return dates;
+}
+
+function getBookedRoomsForPeriod(start, end) {
+  const dates = getDatesBetween(start, end);
+  const allBookedRooms = bookingsData
+    .filter(booking => dates.includes(booking.from))
+    .map(booking => booking.rooms_id);
+
+  return [...new Set(allBookedRooms)];
+}
+
+watch([checkIn, checkOut], () => {
+  bookedRooms.value = getBookedRoomsForPeriod(checkIn.value, checkOut.value);
+});
+
+watch(checkIn, () => {
+  checkOut.value = checkIn.value;
+});
 
 async function fetchRooms() {
   try {
@@ -93,17 +131,9 @@ async function fetchRooms() {
 
 const bookedRooms = ref([]); // Liste der gebuchten Zimmer
 
-async function fetchBookingsForDate(date) {
-  try {
-    const response = await axios.get(`https://boutique-hotel.helmuth-lammer.at/api/v1/bookings?date=${date}`);
-    bookedRooms.value = response.data.map(booking => booking.room_id);
-  } catch (error) {
-    console.error('Fehler beim Abrufen der Buchungsdaten:', error);
-  }
-}
-
 const roomOptions = computed(() => {
   const availableRooms = rooms.value.filter(room => !bookedRooms.value.includes(room.id));
+  console.log('Available rooms:', availableRooms);  // Dies wird uns die verfügbaren Zimmer zeigen
   return [
     { text: 'Wählen Sie ein Zimmer', value: null },
     ...availableRooms.map(room => ({
@@ -112,6 +142,7 @@ const roomOptions = computed(() => {
     }))
   ];
 });
+
 
 const selectedRoomImagePath = computed(() => {
   if (selectedRoom.value) {
@@ -143,8 +174,11 @@ function updateRoomExtras() {
 
 function submitForm() {
   const selectedRoomDetails = rooms.value.find(room => room.id === selectedRoom.value);
-  const numberOfNights = (new Date(checkOut.value) - new Date(checkIn.value)) / (24 * 60 * 60 * 1000);
-  const totalPrice = numberOfNights * selectedRoomDetails.pricePerNight * (adults.value + children.value * 0.5); // Angenommen Kinder kosten 50% des Erwachsenenpreises
+  if (!selectedRoomDetails) {
+    console.error('Das ausgewählte Zimmer wurde nicht gefunden:', selectedRoom.value);
+    return;
+  }
+  const totalPrice = numberOfNights * selectedRoomDetails.pricePerNight * (adults.value + children.value * 0.5);
 
   let bookingMessage = `Sie haben das Zimmer ${selectedRoomDetails.roomsName} gebucht.\n`;
   bookingMessage += `Anzahl der Erwachsenen: ${adults.value}\n`;
@@ -186,14 +220,6 @@ function extraToIcon(extraName) {
 
 watch(selectedRoom, () => {
   updateRoomExtras();
-});
-
-watch(checkIn, () => {
-  fetchBookingsForDate(checkIn.value);
-});
-
-watch(checkOut, () => {
-  fetchBookingsForDate(checkOut.value);
 });
 
 onMounted(() => {
