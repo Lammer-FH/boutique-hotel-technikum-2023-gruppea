@@ -8,54 +8,52 @@
             Room {{ room.roomsNumber }}<br />
             {{ room.roomsName.replace("Default ", "") }}
           </div>
-          <img
-            :src="`src/images/rooms/${room.roomsNumber}.jpg`"
-            alt="Room Image"
-            class="room-image"
-          />
+          <!-- Hier wird togglePopup aufgerufen, wenn auf das Bild geklickt wird -->
+          <img :src="`src/images/rooms/${room.roomsNumber}.jpg`" alt="Room Image" class="room-image"
+            @click="togglePopup(`src/images/rooms/${room.roomsNumber}.jpg`)" />
           <div class="room-description">
             {{ getDescription(room.roomsName) }}
           </div>
           <div class="room-extras">
-            <i
-              v-for="extraObj in filterExtras(room.extras)"
-              :key="Object.keys(extraObj)[0]"
-            >
+            <i v-for="extraObj in filterExtras(room.extras)" :key="Object.keys(extraObj)[0]">
               <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
               <button class="icon-button">
                 <!-- Für Font Awesome Icons -->
-                <i
-                  v-if="extraToIcon(extraObj).library === 'fa'"
-                  :class="extraToIcon(extraObj).icon"
-                ></i>
+                <i v-if="extraToIcon(extraObj).library === 'fa'" :class="extraToIcon(extraObj).icon"></i>
                 <!-- Für Bootstrap Icons -->
-                <i
-                  v-else-if="extraToIcon(extraObj).library === 'bi'"
-                  :class="extraToIcon(extraObj).icon"
-                ></i>
+                <i v-else-if="extraToIcon(extraObj).library === 'bi'" :class="extraToIcon(extraObj).icon"></i>
                 <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
               </button>
             </i>
           </div>
         </div>
         <div class="load-more-container">
-          <button
-            @click="loadMoreRooms"
-            v-if="firstFiveRooms.length < rooms.length"
-            class="btn btn-primary"
-          >
+          <button @click="loadMoreRooms" v-if="firstFiveRooms.length < rooms.length" class="btn btn-primary">
             Mehr Zimmer anzeigen
           </button>
         </div>
       </div>
     </div>
+    <!-- Hier wird das Popup angezeigt, wenn showPopup true ist -->
+    <div v-if="showPopup" class="image-popup" @click="togglePopup('')">
+      <img :src="popupImageSrc" alt="Popup Image" class="room-image" />
+    </div>
   </div>
 </template>
+
 
 <script setup>
 import "bootstrap-icons/font/bootstrap-icons.css"; // Stil für die Icons
 import { ref, onMounted } from "vue";
 import axios from "axios";
+
+const showPopup = ref(false); // Zustand des Popups
+const popupImageSrc = ref(""); // Bildquelle für das Popup
+
+const togglePopup = (imageSrc) => {
+  showPopup.value = !showPopup.value;
+  popupImageSrc.value = imageSrc;
+};
 
 const ROOM_TYPES = {
   DOUBLE_BEDROOM: "Double Bedroom",
@@ -137,9 +135,30 @@ onMounted(() => {
 });
 </script>
 
-// Hier würde der vorherige Stil fortgesetzt werden.
-
 <style scoped>
+.image-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.image-popup img {
+  max-width: 90%;
+  max-height: 90%;
+  height: inherit;
+  width: auto;
+  border: 1px solid #9bb8e5;
+  border-radius: 5px;
+  padding: 2%;
+}
+
 .room-image {
   width: 100%;
   height: 150px;
@@ -174,11 +193,23 @@ onMounted(() => {
   margin: 0 5px;
   color: #4382e2e4;
   text-align: -webkit-center;
-  transition: color 0.3s; /* sanfter Übergang für den Farbwechsel */
+  transition: color 0.3s;
+  /* sanfter Übergang für den Farbwechsel */
 }
 
 .room-extras i:hover {
-  color: #2a66c9; /* Eine dunklere Schattierung von #4382e2 */
+  color: #2a66c9;
+  /* Eine dunklere Schattierung von #4382e2 */
+}
+
+.room-extras {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  flex-grow: 1;
+  align-items: baseline;
 }
 
 .room-grid {
