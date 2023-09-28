@@ -1,12 +1,5 @@
-/**
- * @file BookView.vue
- * @description This file contains the template and script for the BookView component, which is responsible for displaying the booking form and room details.
- * The component fetches room data from an API and displays it in a form, allowing users to select a room and book it for a specific date range.
- * The component also displays room details, including an image and any extras that come with the selected room.
- * The component uses Vue.js and Bootstrap for styling and functionality.
- */
 <template>
-  <b-row class="row1">
+  <b-row class="headline">
     <b-col>
       <h1>Hotelbuchung</h1>
     </b-col>
@@ -57,7 +50,6 @@
           <li v-for="extraObj in selectedRoomExtras" :key="Object.keys(extraObj)[0]">
             <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
             <button class="icon-button">
-              <!-- Erhalten des Schlüssels (extraName) aus extraObj -->
               <template v-if="Object.keys(extraObj).length > 0">
                 <template v-if="extraToIcon(Object.keys(extraObj)[0]).library === 'fa'">
                   <i :class="extraToIcon(Object.keys(extraObj)[0]).icon"></i>
@@ -77,7 +69,7 @@
 
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Stil für die Icons
+import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import bookingsData from '../bookings.json';
 
@@ -122,23 +114,22 @@ async function fetchRooms() {
   try {
     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
     rooms.value = response.data;
-    selectedRoom.value = rooms.value[0]?.id || null;  // Setzen Sie das erste Zimmer als Standardauswahl
-    updateRoomExtras();  // Aktualisieren Sie die Zimmer-Extras basierend auf dem ausgewählten Zimmer
+    selectedRoom.value = rooms.value[0]?.id || null;  
+    updateRoomExtras(); 
   } catch (error) {
     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
   }
 }
 
-const bookedRooms = ref([]); // Liste der gebuchten Zimmer
+const bookedRooms = ref([]);
 
 const roomOptions = computed(() => {
   const availableRooms = rooms.value.filter(room => !bookedRooms.value.includes(room.id));
-  console.log('Available rooms:', availableRooms);  // Dies wird uns die verfügbaren Zimmer zeigen
   return [
     { text: 'Wählen Sie ein Zimmer', value: null },
     ...availableRooms.map(room => ({
       value: room.id,
-      text: `${room.roomsName.replace('Default ', '')} - ${room.pricePerNight} € pro Nacht`,
+      text: `${room.roomsNumber ? room.roomsNumber + ' - ' : ''}${room.roomsName.replace('Default ', '')} - ${room.pricePerNight} € pro Nacht`,
     }))
   ];
 });
@@ -161,9 +152,8 @@ function updateRoomExtras() {
     if (selected && selected.extras) {
       for (const extra of selected.extras) {
         const [key, value] = Object.entries(extra)[0];
-        // Überprüfen Sie, ob der Wert 1 ist, bevor Sie den Schlüssel speichern
         if (value === 1) {
-          selectedRoomExtras.value.push({ [key]: value }); // Store the key-value pair if value is 1
+          selectedRoomExtras.value.push({ [key]: value }); 
         }
       }
     }
@@ -190,7 +180,7 @@ function submitForm() {
   bookingMessage += `Gesamtpreis: ${totalPrice} €`;
 
   console.log('Ihre Buchungsdetails:', bookingMessage);
-  alert(bookingMessage);  // Zeigt eine Popup-Nachricht mit den Buchungsdetails
+  alert(bookingMessage);
 }
 
 const EXTRAS = {
@@ -290,9 +280,15 @@ img {
   margin-top: calc(-1 * var(--bs-gutter-y));
   margin-right: calc(-0.5 * var(--bs-gutter-x));
   margin-left: calc(-0.5 * var(--bs-gutter-x));
+
 }
 
-@media (min-width: 1025px) {}
+@media (min-width: 1025px) {
+  .row {
+    width: 100vw;
+    max-width: min(calc(100vw - 20px), 1140px);
+  }
+}
 
 @media (max-width: 1024px) {}
 
