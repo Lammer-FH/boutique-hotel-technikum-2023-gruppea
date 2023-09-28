@@ -226,13 +226,11 @@ onMounted(() => {
 .btn {
   position: relative;
   object-fit: cover;
-  /* font-size: 100px; */
   width: -webkit-fill-available;
 }
 
 .booking-search {
   box-sizing: border-box;
-  /*eine kleine rand um die box*/
   border: 1px solid #9bb8e5;
   border-radius: 10px;
   padding: 2%;
@@ -241,11 +239,11 @@ onMounted(() => {
 
 img {
   border-radius: 10px;
-  background: rgba(9, 9, 9, 0.45);
   width: -webkit-fill-available;
-  height: 442px;
-  flex-shrink: 0;
+  height: 460px;
   object-fit: cover;
+  border: 1px solid #9bb8e5;
+  /* padding: 2%; */
 }
 
 .room-extras {
