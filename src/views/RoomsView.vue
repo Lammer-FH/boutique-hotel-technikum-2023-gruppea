@@ -8,7 +8,6 @@
             Room {{ room.roomsNumber }}<br />
             {{ room.roomsName.replace("Default ", "") }}
           </div>
-          <!-- Hier wird togglePopup aufgerufen, wenn auf das Bild geklickt wird -->
           <img :src="`src/images/rooms/${room.roomsNumber}.jpg`" alt="Room Image" class="room-image"
             @click="togglePopup(`src/images/rooms/${room.roomsNumber}.jpg`)" />
           <div class="room-description">
@@ -34,21 +33,19 @@
         </div>
       </div>
     </div>
-    <!-- Hier wird das Popup angezeigt, wenn showPopup true ist -->
     <div v-if="showPopup" class="image-popup" @click="togglePopup('')">
       <img :src="popupImageSrc" alt="Popup Image" class="room-image" />
     </div>
   </div>
 </template>
 
-
 <script setup>
-import "bootstrap-icons/font/bootstrap-icons.css"; // Stil für die Icons
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const showPopup = ref(false); // Zustand des Popups
-const popupImageSrc = ref(""); // Bildquelle für das Popup
+const showPopup = ref(false); 
+const popupImageSrc = ref(""); 
 
 const togglePopup = (imageSrc) => {
   showPopup.value = !showPopup.value;
@@ -159,11 +156,24 @@ onMounted(() => {
   padding: 2%;
 }
 
-.room-image {
+.image-popup .room-image {
+  max-width: 90%;
+  max-height: 90%;
+  height: auto;
+  width: auto;
+  border: 1px solid #9bb8e5;
+  border-radius: 5px;
+  padding: 2%;
+  border-radius: 10px;
+}
+
+.room-box .room-image {
   width: 100%;
   height: 150px;
   object-fit: cover;
+  border-radius: 10px;
 }
+
 
 .text-center {
   text-align: center;
@@ -172,19 +182,14 @@ onMounted(() => {
 
 .room-info {
   text-align: -webkit-left;
-  /* Zentriert den Text */
   width: 100%;
-  /* Nimmt die gesamte verfügbare Breite ein */
   margin: 0 0 10px 0;
 }
 
 .room-description {
   text-align: -webkit-left;
-  /* Zentriert den Text */
   width: 100%;
-  /* Nimmt die gesamte verfügbare Breite ein */
   min-height: 80px;
-  /* Fügen Sie eine Mindesthöhe hinzu, damit alle room-boxes die gleiche Höhe haben */
   margin: 8px 0;
 }
 
@@ -194,12 +199,10 @@ onMounted(() => {
   color: #4382e2e4;
   text-align: -webkit-center;
   transition: color 0.3s;
-  /* sanfter Übergang für den Farbwechsel */
 }
 
 .room-extras i:hover {
   color: #2a66c9;
-  /* Eine dunklere Schattierung von #4382e2 */
 }
 
 .room-extras {
@@ -221,10 +224,8 @@ onMounted(() => {
 .room-box {
   flex: 1;
   min-width: calc(20% - 16px);
-  /* Ändern Sie die Prozentsätze je nach Anzahl der sichtbaren room-boxes */
   max-width: 100%;
   box-sizing: border-box;
-  /*eine kleine rand um die box*/
   border: 1px solid #9bb8e5;
   border-radius: 5px;
   padding: 2%;
@@ -233,7 +234,6 @@ onMounted(() => {
 @media (min-width: 1025px) {
   .room-box {
     min-width: calc(20% - 16px);
-    /* Anzahl der sichtbaren room-boxes ändern */
     padding: 1%;
   }
 }
@@ -241,21 +241,18 @@ onMounted(() => {
 @media (max-width: 1024px) {
   .room-box {
     min-width: calc(33.33% - 16px);
-    /* Anzahl der sichtbaren room-boxes ändern */
   }
 }
 
 @media (max-width: 768px) {
   .room-box {
     min-width: calc(50% - 16px);
-    /* Anzahl der sichtbaren room-boxes ändern */
   }
 }
 
 @media (max-width: 480px) {
   .room-box {
     min-width: 100%;
-    /* Zeigen Sie alle room-boxes an */
     padding: 3%;
   }
 }
@@ -263,15 +260,12 @@ onMounted(() => {
 .load-more-container {
   flex: 1;
   min-width: calc(20% - 16px);
-  /* Die gleiche Breite wie room-box */
   max-width: 100%;
   box-sizing: border-box;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Zentrieren Sie den Inhalt horizontal und vertikal */
   padding: 16px;
-  /* Fügen Sie Padding hinzu, um den Button zu zentrieren */
 }
 
 .tooltip-text {

@@ -13,11 +13,11 @@ const toggleSidebar = () => {
     <button @click="toggleSidebar" class="btn btn-primary">☰</button>
     <div v-if="showSidebar" class="sidebar">
       <button @click="toggleSidebar" class="close-btn">✖</button>
-      <RouterLink to="/" @click.native="toggleSidebar">Home</RouterLink>
-      <RouterLink to="/book" @click.native="toggleSidebar">Book</RouterLink>
-      <RouterLink to="/rooms" @click.native="toggleSidebar">Rooms</RouterLink>
-      <RouterLink to="/about" @click.native="toggleSidebar">About</RouterLink>
-      <RouterLink to="/impressum" @click.native="toggleSidebar">Impressum</RouterLink>
+      <RouterLink to="/" @click.native="toggleSidebar" class="btn btn-primary mb-2">Home</RouterLink>
+      <RouterLink to="/book" @click.native="toggleSidebar" class="btn btn-primary mb-2">Book</RouterLink>
+      <RouterLink to="/rooms" @click.native="toggleSidebar" class="btn btn-primary mb-2">Rooms</RouterLink>
+      <RouterLink to="/about" @click.native="toggleSidebar" class="btn btn-primary mb-2">About</RouterLink>
+      <RouterLink to="/impressum" @click.native="toggleSidebar" class="btn btn-primary mb-2">Impressum</RouterLink>
     </div>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
     <div class="wrapper">
@@ -41,6 +41,11 @@ const toggleSidebar = () => {
   display: none;
 }
 
+.sidebar[style*="display: block"] {
+  display: flex;
+  flex-direction: column;
+}
+
 .sidebar {
   display: block;
   position: fixed;
@@ -48,10 +53,10 @@ const toggleSidebar = () => {
   left: 0;
   width: 21.125rem;
   height: 100vh;
-  /* background-color: #111; */
+  background-color: #111;
   /* background-color: hsla(160, 100%, 37%, 1); */
-  background-color: hsl(211.43deg 28.77% 28.63%);
-  padding: 10px;
+  /* background-color: hsl(211.43deg 28.77% 28.63%); */
+  padding: 60px 25px 0 25px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   z-index: 900;
   animation: toright 0.25s;
@@ -63,6 +68,11 @@ const toggleSidebar = () => {
   color: white;
   text-decoration: none;
   margin-bottom: 5px;
+  border-radius: 0.25rem;
+  /* abgerundete Ecken */
+  transition: background-color 0.2s ease-in-out;
+  /* sanfter Übergang für Hover */
+  font-size: x-large;
 }
 
 .sidebar a:hover {
@@ -75,13 +85,7 @@ const toggleSidebar = () => {
   }
 }
 
-.sidebar[style*="display: block"] {
-  display: flex;
-  flex-direction: column;
-}
-
 .close-btn {
-  background: none;
   border: none;
   color: white;
   font-size: 24px;
@@ -102,7 +106,7 @@ const toggleSidebar = () => {
 }
 
 .logo {
-  position: absolute;
+  padding: 3%;
   top: 10px;
   right: 10px;
 }
@@ -133,4 +137,10 @@ nav#mainnav a {
     margin: 0 15px;
     /* Optional: Ein bisschen Abstand zwischen den Icons */
   }
-}</style>
+}
+  @media (max-width: 768px) {
+.logo {
+  justify-content: center;
+  }
+}
+</style>
