@@ -12,13 +12,26 @@ const toggleSidebar = () => {
   <header>
     <button @click="toggleSidebar" class="btn btn-primary">☰</button>
     <div v-if="showSidebar" class="sidebar">
+      <img alt="Logo" class="sidebar-logo" src="@/assets/logo.svg" width="50" height="50" />
+
       <button @click="toggleSidebar" class="close-btn">✖</button>
-      <RouterLink to="/" @click.native="toggleSidebar" class="btn btn-primary mb-2">Home</RouterLink>
-      <RouterLink to="/book" @click.native="toggleSidebar" class="btn btn-primary mb-2">Book</RouterLink>
-      <RouterLink to="/rooms" @click.native="toggleSidebar" class="btn btn-primary mb-2">Rooms</RouterLink>
-      <RouterLink to="/about" @click.native="toggleSidebar" class="btn btn-primary mb-2">About</RouterLink>
-      <RouterLink to="/impressum" @click.native="toggleSidebar" class="btn btn-primary mb-2">Impressum</RouterLink>
+      <RouterLink to="/" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
+        <i class="fas fa-home"></i> Home
+      </RouterLink>
+      <RouterLink to="/book" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
+        <i class="fa-solid fa-calendar-days"></i> Book
+      </RouterLink>
+      <RouterLink to="/rooms" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
+        <i class="fas fa-bed"></i> Rooms
+      </RouterLink>
+      <RouterLink to="/about" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
+        <i class="fas fa-info-circle"></i> About
+      </RouterLink>
+      <RouterLink to="/impressum" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
+        <i class="fas fa-legal"></i> Impressum
+      </RouterLink>
     </div>
+
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
     <div class="wrapper">
       <HelloWorld msg="HOTEL TECHNIKUM-A" />
@@ -39,6 +52,8 @@ const toggleSidebar = () => {
 <style scoped>
 .btn {
   display: none;
+  background: #000;
+    border: transparent;
 }
 
 .sidebar[style*="display: block"] {
@@ -56,7 +71,7 @@ const toggleSidebar = () => {
   background-color: #111;
   /* background-color: hsla(160, 100%, 37%, 1); */
   /* background-color: hsl(211.43deg 28.77% 28.63%); */
-  padding: 60px 25px 0 25px;
+  padding: 30px 25px 0 25px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
   z-index: 900;
   animation: toright 0.25s;
@@ -67,16 +82,39 @@ const toggleSidebar = () => {
   padding: 10px;
   color: white;
   text-decoration: none;
+  text-align: left;
   margin-bottom: 5px;
-  border-radius: 0.25rem;
+  /* border-radius: 0.25rem; */
   /* abgerundete Ecken */
   transition: background-color 0.2s ease-in-out;
   /* sanfter Übergang für Hover */
   font-size: x-large;
 }
 
+.sidebar-logo {
+  margin: 0 20px 30px 0px;
+  filter: grayscale(100%);
+  padding: 0.5rem;
+}
+
 .sidebar a:hover {
   background-color: #575757;
+}
+
+.btn-left-align {
+  text-align: left;
+  justify-content: flex-start;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  --bs-btn-border-color: transparent;
+}
+
+.btn-left-align i {
+  margin-right: 30px;
+  width: 20px;
+  /* Feste Breite für alle Icons */
+  text-align: center;
 }
 
 @media (max-width: 768px) {
@@ -88,11 +126,13 @@ const toggleSidebar = () => {
 .close-btn {
   border: none;
   color: white;
-  font-size: 24px;
+  font-size: 20px;
   position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
+  color: #ffffff;
+  background: transparent;
 }
 
 @keyframes toright {
@@ -138,9 +178,9 @@ nav#mainnav a {
     /* Optional: Ein bisschen Abstand zwischen den Icons */
   }
 }
-  @media (max-width: 768px) {
-.logo {
-  justify-content: center;
+
+@media (max-width: 768px) {
+  .logo {
+    justify-content: center;
   }
-}
-</style>
+}</style>

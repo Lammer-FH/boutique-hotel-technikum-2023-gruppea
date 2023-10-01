@@ -102,14 +102,6 @@ function getBookedRoomsForPeriod(start, end) {
   return [...new Set(allBookedRooms)];
 }
 
-watch([checkIn, checkOut], () => {
-  bookedRooms.value = getBookedRoomsForPeriod(checkIn.value, checkOut.value);
-});
-
-watch(checkIn, () => {
-  checkOut.value = checkIn.value;
-});
-
 async function fetchRooms() {
   try {
     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
@@ -162,27 +154,6 @@ function updateRoomExtras() {
   }
 }
 
-function submitForm() {
-  const selectedRoomDetails = rooms.value.find(room => room.id === selectedRoom.value);
-  if (!selectedRoomDetails) {
-    console.error('Das ausgewählte Zimmer wurde nicht gefunden:', selectedRoom.value);
-    return;
-  }
-  const totalPrice = numberOfNights * selectedRoomDetails.pricePerNight * (adults.value + children.value * 0.5);
-
-  let bookingMessage = `Sie haben das Zimmer ${selectedRoomDetails.roomsName} gebucht.\n`;
-  bookingMessage += `Anzahl der Erwachsenen: ${adults.value}\n`;
-
-  if (children.value > 0) {
-    bookingMessage += `Anzahl der Kinder: ${children.value}\n`;
-  }
-
-  bookingMessage += `Gesamtpreis: ${totalPrice} €`;
-
-  console.log('Ihre Buchungsdetails:', bookingMessage);
-  alert(bookingMessage);
-}
-
 const EXTRAS = {
   BATHROOM: "bathroom",
   MINIBAR: "minibar",
@@ -207,6 +178,14 @@ function extraToIcon(extraName) {
   };
   return mapping[extraName] || { library: 'bi', icon: 'bi-question' };
 }
+
+watch([checkIn, checkOut], () => {
+  bookedRooms.value = getBookedRoomsForPeriod(checkIn.value, checkOut.value);
+});
+
+watch(checkIn, () => {
+  checkOut.value = checkIn.value;
+});
 
 watch(selectedRoom, () => {
   updateRoomExtras();
