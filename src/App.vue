@@ -53,7 +53,7 @@ const toggleSidebar = () => {
 .btn {
   display: none;
   background: #000;
-    border: transparent;
+  border: transparent;
 }
 
 .sidebar[style*="display: block"] {
@@ -111,7 +111,7 @@ const toggleSidebar = () => {
 }
 
 .btn-left-align i {
-  margin-right: 30px;
+  margin-right: 40px;
   width: 20px;
   /* Feste Breite für alle Icons */
   text-align: center;
@@ -183,4 +183,5 @@ nav#mainnav a {
   .logo {
     justify-content: center;
   }
-}</style>
+}
+</style>
