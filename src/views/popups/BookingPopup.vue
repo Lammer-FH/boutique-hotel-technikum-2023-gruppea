@@ -39,7 +39,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, computed } from 'vue';
 
 // Definiere Props für den Popup
 const props = defineProps({
