@@ -202,12 +202,6 @@ onMounted(() => {
   position: relative;
 }
 
-.btn {
-  position: relative;
-  object-fit: cover;
-  width: -webkit-fill-available;
-}
-
 .booking-search {
   box-sizing: border-box;
   border: 1px solid #9bb8e5;
