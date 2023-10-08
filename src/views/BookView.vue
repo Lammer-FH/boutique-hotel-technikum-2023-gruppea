@@ -33,9 +33,47 @@
           <b-form-group class="mt-3" label="Zimmerauswahl:" label-for="room">
             <b-form-select id="room" v-model="selectedRoom" :options="roomOptions"
               @change="updateRoomExtras"></b-form-select>
-
           </b-form-group>
-          <b-button type="submit" variant="primary">Buchen</b-button>
+
+          <!-- Buchen Button -->
+          <b-button @click="showModal = true" variant="primary">Buchen</b-button>
+          <b-modal id="booking-modal" v-model="showModal">
+            <template #modal-title>
+              Zimmer Buchung
+            </template>
+
+            <b-form @submit.prevent="submitBookingForm">
+              <div v-for="i in totalGuests" :key="i">
+                <b-row>
+                  <b-col md="6">
+                    <b-form-group :label="`Vorname (Gast ${i})`">
+                      <b-form-input type="text" required></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="6">
+                    <b-form-group :label="`Nachname (Gast ${i})`">
+                      <b-form-input type="text" required></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+              </div>
+
+              <b-form-group label="E-Mail Adresse">
+                <b-form-input type="email" required></b-form-input>
+              </b-form-group>
+              <b-form-group label="E-Mail Adresse bestätigen">
+                <b-form-input type="email" required></b-form-input>
+              </b-form-group>
+
+              <b-form-group label="Frühstück">
+                  <b-form-radio value="Ja">Ja</b-form-radio>
+                  <b-form-radio value="Nein">Nein</b-form-radio>
+              </b-form-group>
+
+              <b-button type="submit" variant="success">Bestätigen</b-button>
+            </b-form>
+          </b-modal>
+
         </b-form>
       </div>
     </b-col>
@@ -81,6 +119,18 @@ const children = ref(0);
 const rooms = ref([]);
 const selectedRoom = ref(null);
 const selectedRoomExtras = ref([]);
+const showModal = ref(false);
+
+const totalGuests = computed(() => {
+  const total = parseInt(adults.value, 10) + parseInt(children.value, 10);
+  console.log("Total Guests:", total);
+  return total;
+});
+
+
+function submitBookingForm() {
+  // Deine Logik hier
+}
 
 function getDatesBetween(startDate, endDate) {
   const dates = [];
@@ -156,7 +206,7 @@ function updateRoomExtras() {
       for (const extra of selected.extras) {
         const [key, value] = Object.entries(extra)[0];
         if (value === 1) {
-          selectedRoomExtras.value.push({ [key]: value }); 
+          selectedRoomExtras.value.push({ [key]: value });
         }
       }
     }
@@ -211,6 +261,10 @@ onMounted(() => {
 <style scoped>
 .room-image-container {
   position: relative;
+}
+
+.btn {
+  width: -webkit-fill-available;
 }
 
 .booking-search {
