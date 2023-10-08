@@ -1,0 +1,332 @@
+[
+    {
+        "id": 1,
+        "roomsNumber": "101",
+        "roomsName": "Default Double Bedroom",
+        "beds": 2,
+        "pricePerNight": 120,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "roomsNumber": "102",
+        "roomsName": "Default Double Bedroom",
+        "beds": 2,
+        "pricePerNight": 120,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "roomsNumber": "103",
+        "roomsName": "Default Single Bedroom",
+        "beds": 1,
+        "pricePerNight": 120,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "roomsNumber": "104",
+        "roomsName": "Default Single Bedroom",
+        "beds": 1,
+        "pricePerNight": 120,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "roomsNumber": "201",
+        "roomsName": "Junior Suite",
+        "beds": 2,
+        "pricePerNight": 160,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 0
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "roomsNumber": "202",
+        "roomsName": "Royal Double Bedroom",
+        "beds": 2,
+        "pricePerNight": 160,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "roomsNumber": "203",
+        "roomsName": "Family Suite",
+        "beds": 4,
+        "pricePerNight": 220,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 1
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "roomsNumber": "301",
+        "roomsName": "Room with a view",
+        "beds": 2,
+        "pricePerNight": 180,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "roomsNumber": "302",
+        "roomsName": "Room with a view",
+        "beds": 2,
+        "pricePerNight": 180,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 0
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "roomsNumber": "303",
+        "roomsName": "Honeymoon Suite",
+        "beds": 2,
+        "pricePerNight": 320,
+        "extras": [
+            {
+                "bathroom": 1
+            },
+            {
+                "minibar": 1
+            },
+            {
+                "television": 1
+            },
+            {
+                "livingroom": 1
+            },
+            {
+                "aircondition": 1
+            },
+            {
+                "wifi": 1
+            },
+            {
+                "breakfast": 1
+            },
+            {
+                "handicapped accessible": 1
+            }
+        ]
+    }
+]
