@@ -29,44 +29,7 @@
               @change="updateRoomExtras"></b-form-select>
           </b-form-group>
 
-          <!-- Buchen Button -->
-          <b-button @click="showModal = true" variant="primary">Buchen</b-button>
-          <b-modal id="booking-modal" v-model="showModal">
-            <template #modal-title>
-              Zimmer Buchung
-            </template>
-
-            <b-form @submit.prevent="submitBookingForm">
-              <div v-for="i in totalGuests" :key="i">
-                <b-row>
-                  <b-col md="6">
-                    <b-form-group :label="`Vorname (Gast ${i})`">
-                      <b-form-input type="text" required></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                  <b-col md="6">
-                    <b-form-group :label="`Nachname (Gast ${i})`">
-                      <b-form-input type="text" required></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-              </div>
-
-              <b-form-group label="E-Mail Adresse">
-                <b-form-input type="email" required></b-form-input>
-              </b-form-group>
-              <b-form-group label="E-Mail Adresse bestätigen">
-                <b-form-input type="email" required></b-form-input>
-              </b-form-group>
-
-              <b-form-group label="Frühstück">
-                  <b-form-radio value="Ja">Ja</b-form-radio>
-                  <b-form-radio value="Nein">Nein</b-form-radio>
-              </b-form-group>
-
-              <b-button type="submit" variant="success">Bestätigen</b-button>
-            </b-form>
-          </b-modal>
+          <b-button type="submit" variant="primary">Buchen</b-button>
 
         </b-form>
       </div>
@@ -98,12 +61,12 @@
     </b-col>
   </b-row>
 </template>
+
 <script setup>
 import { ref, onMounted, computed, watch } from 'vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import bookingsData from '../bookings.json';
-import roomsData from '../rooms.json';
 import roomsData from '../rooms.json';
 
 const checkIn = ref(new Date().toISOString().split('T')[0]);
@@ -227,6 +190,7 @@ onMounted(() => {
   updateRoomExtras();
 });
 </script>
+
 <style scoped>
 .room-image-container {
   position: relative;
@@ -243,6 +207,7 @@ onMounted(() => {
   padding: 2%;
   width: -webkit-fill-available;
 }
+
 img {
   border-radius: 10px;
   width: -webkit-fill-available;
@@ -251,6 +216,7 @@ img {
   border: 1px solid #9bb8e5;
   /* padding: 2%; */
 }
+
 .room-extras {
   position: relative;
   bottom: 50px;
@@ -266,12 +232,15 @@ img {
   /* padding-bottom: 3rem; */
   padding-right: 2rem;
 }
+
 .room-extras i:hover {
   color: rgba(255, 255, 255, 0.900) !important;
 }
+
 .icon-button {
   color: rgba(255, 255, 255, 0.550);
 }
+
 .row {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 1.5rem;
@@ -281,22 +250,26 @@ img {
   margin-right: calc(-0.5 * var(--bs-gutter-x));
   margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
+
 @media (min-width: 1025px) {
   .row {
     width: 100vw;
     max-width: min(calc(100vw - 20px), 1140px);
   }
 }
+
 @media (max-width: 1024px) {}
+
 @media (max-width: 768px) {}
+
 @media (max-width: 480px) {
   .room-extras {
     font-size: 20px;
   }
 }
+
 @media (max-width: 350px) {
   .room-extras {
     font-size: 15px;
   }
-}
-</style>
+}</style>
