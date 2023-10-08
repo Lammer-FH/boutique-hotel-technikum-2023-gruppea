@@ -72,6 +72,7 @@ import { ref, onMounted, computed, watch } from 'vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import bookingsData from '../bookings.json';
+import roomsData from '../rooms.json';
 
 const checkIn = ref(new Date().toISOString().split('T')[0]);
 const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
@@ -102,16 +103,27 @@ function getBookedRoomsForPeriod(start, end) {
   return [...new Set(allBookedRooms)];
 }
 
-async function fetchRooms() {
+// Fetch rooms data from local JSON instead of API
+function fetchRooms() {
   try {
-    const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
-    rooms.value = response.data;
-    selectedRoom.value = rooms.value[0]?.id || null;  
-    updateRoomExtras(); 
+    rooms.value = roomsData;
+    selectedRoom.value = rooms.value[0]?.id || null;
+    updateRoomExtras();
   } catch (error) {
     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
   }
 }
+
+// async function fetchRooms() {
+//   try {
+//     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
+//     rooms.value = response.data;
+//     selectedRoom.value = rooms.value[0]?.id || null;  
+//     updateRoomExtras(); 
+//   } catch (error) {
+//     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
+//   }
+// }
 
 const bookedRooms = ref([]);
 
@@ -125,7 +137,6 @@ const roomOptions = computed(() => {
     }))
   ];
 });
-
 
 const selectedRoomImagePath = computed(() => {
   if (selectedRoom.value) {
