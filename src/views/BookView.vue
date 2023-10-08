@@ -4,6 +4,7 @@
       <h1>Hotelbuchung</h1>
     </b-col>
   </b-row>
+
   <b-row>
     <b-col md="6" id="booking">
       <div class="booking-search">
@@ -29,11 +30,14 @@
               @change="updateRoomExtras"></b-form-select>
           </b-form-group>
 
-          <b-button type="submit" variant="primary">Buchen</b-button>
+          <!-- Button für das Popup eingefügt -->
+          <b-button @click="showModal = true" variant="primary">Buchen</b-button>
+          <BookingPopup :is-open.sync="showModal"></BookingPopup>
 
         </b-form>
       </div>
     </b-col>
+
     <b-col md="6" id="imgId">
       <div v-if="selectedRoomExtras.length > 0">
         <div>
@@ -68,6 +72,9 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import bookingsData from '../bookings.json';
 import roomsData from '../rooms.json';
+import BookingPopup from './popups/BookingPopup.vue';
+
+const showModal = ref(false);
 
 const checkIn = ref(new Date().toISOString().split('T')[0]);
 const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
@@ -76,6 +83,7 @@ const children = ref(0);
 const rooms = ref([]);
 const selectedRoom = ref(null);
 const selectedRoomExtras = ref([]);
+
 function getDatesBetween(startDate, endDate) {
   const dates = [];
   let currentDate = new Date(startDate);
@@ -153,6 +161,7 @@ function updateRoomExtras() {
     selectedRoomExtras.value = [];
   }
 }
+
 const EXTRAS = {
   BATHROOM: "bathroom",
   MINIBAR: "minibar",
@@ -272,4 +281,5 @@ img {
   .room-extras {
     font-size: 15px;
   }
-}</style>
+}
+</style>
