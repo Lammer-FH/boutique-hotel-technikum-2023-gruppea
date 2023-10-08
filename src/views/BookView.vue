@@ -28,7 +28,46 @@
             <b-form-select id="room" v-model="selectedRoom" :options="roomOptions"
               @change="updateRoomExtras"></b-form-select>
           </b-form-group>
-          <b-button type="submit" variant="primary">Buchen</b-button>
+
+          <!-- Buchen Button -->
+          <b-button @click="showModal = true" variant="primary">Buchen</b-button>
+          <b-modal id="booking-modal" v-model="showModal">
+            <template #modal-title>
+              Zimmer Buchung
+            </template>
+
+            <b-form @submit.prevent="submitBookingForm">
+              <div v-for="i in totalGuests" :key="i">
+                <b-row>
+                  <b-col md="6">
+                    <b-form-group :label="`Vorname (Gast ${i})`">
+                      <b-form-input type="text" required></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                  <b-col md="6">
+                    <b-form-group :label="`Nachname (Gast ${i})`">
+                      <b-form-input type="text" required></b-form-input>
+                    </b-form-group>
+                  </b-col>
+                </b-row>
+              </div>
+
+              <b-form-group label="E-Mail Adresse">
+                <b-form-input type="email" required></b-form-input>
+              </b-form-group>
+              <b-form-group label="E-Mail Adresse bestätigen">
+                <b-form-input type="email" required></b-form-input>
+              </b-form-group>
+
+              <b-form-group label="Frühstück">
+                  <b-form-radio value="Ja">Ja</b-form-radio>
+                  <b-form-radio value="Nein">Nein</b-form-radio>
+              </b-form-group>
+
+              <b-button type="submit" variant="success">Bestätigen</b-button>
+            </b-form>
+          </b-modal>
+
         </b-form>
       </div>
     </b-col>
@@ -65,6 +104,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import bookingsData from '../bookings.json';
 import roomsData from '../rooms.json';
+import roomsData from '../rooms.json';
+
 const checkIn = ref(new Date().toISOString().split('T')[0]);
 const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
 const adults = ref(1);
@@ -89,6 +130,7 @@ function getBookedRoomsForPeriod(start, end) {
     .map(booking => booking.rooms_id);
   return [...new Set(allBookedRooms)];
 }
+
 // Fetch rooms data from local JSON instead of API
 function fetchRooms() {
   try {
@@ -99,6 +141,7 @@ function fetchRooms() {
     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
   }
 }
+
 // async function fetchRooms() {
 //   try {
 //     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
@@ -109,6 +152,7 @@ function fetchRooms() {
 //     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
 //   }
 // }
+
 const bookedRooms = ref([]);
 const roomOptions = computed(() => {
   const availableRooms = rooms.value.filter(room => !bookedRooms.value.includes(room.id));
@@ -120,6 +164,7 @@ const roomOptions = computed(() => {
     }))
   ];
 });
+
 const selectedRoomImagePath = computed(() => {
   if (selectedRoom.value) {
     const selectedRoomDetails = rooms.value.find(room => room.id === selectedRoom.value);
@@ -137,7 +182,7 @@ function updateRoomExtras() {
       for (const extra of selected.extras) {
         const [key, value] = Object.entries(extra)[0];
         if (value === 1) {
-          selectedRoomExtras.value.push({ [key]: value }); 
+          selectedRoomExtras.value.push({ [key]: value });
         }
       }
     }
@@ -186,6 +231,11 @@ onMounted(() => {
 .room-image-container {
   position: relative;
 }
+
+.btn {
+  width: -webkit-fill-available;
+}
+
 .booking-search {
   box-sizing: border-box;
   border: 1px solid #9bb8e5;
