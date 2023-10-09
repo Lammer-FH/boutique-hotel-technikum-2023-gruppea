@@ -32,7 +32,10 @@
 
           <!-- Button für das Popup eingefügt -->
           <b-button @click="showModal = true" variant="primary">Buchen</b-button>
-          <BookingPopup :is-open.sync="showModal"></BookingPopup>
+          <BookingPopup v-model="showModal" :numberOfAdults="adults" :numberOfChildren="children" :checkIn="checkIn"
+            :checkOut="checkOut" :selectedRoom="selectedRoomName" />
+          Adults: {{ adults }}
+          Children: {{ children }}
 
         </b-form>
       </div>
@@ -75,14 +78,21 @@ import roomsData from '../rooms.json';
 import BookingPopup from './popups/BookingPopup.vue';
 
 const showModal = ref(false);
-
 const checkIn = ref(new Date().toISOString().split('T')[0]);
 const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
-const adults = ref(1);
-const children = ref(0);
 const rooms = ref([]);
 const selectedRoom = ref(null);
 const selectedRoomExtras = ref([]);
+const adults = ref(1);
+const children = ref(0);
+
+const selectedRoomDetails = computed(() => {
+  return rooms.value.find(room => room.id === selectedRoom.value);
+});
+
+const selectedRoomName = computed(() => {
+  return selectedRoomDetails.value ? selectedRoomDetails.value.roomsName.replace('Default ', '') : null;
+});
 
 function getDatesBetween(startDate, endDate) {
   const dates = [];
@@ -94,6 +104,7 @@ function getDatesBetween(startDate, endDate) {
   }
   return dates;
 }
+
 function getBookedRoomsForPeriod(start, end) {
   const dates = getDatesBetween(start, end);
   const allBookedRooms = bookingsData
@@ -145,6 +156,7 @@ const selectedRoomImagePath = computed(() => {
   }
   return null;
 });
+
 function updateRoomExtras() {
   if (selectedRoom.value) {
     const selected = rooms.value.find(room => room.id === selectedRoom.value);
@@ -185,6 +197,7 @@ function extraToIcon(extraName) {
   };
   return mapping[extraName] || { library: 'bi', icon: 'bi-question' };
 }
+
 watch([checkIn, checkOut], () => {
   bookedRooms.value = getBookedRoomsForPeriod(checkIn.value, checkOut.value);
 });
@@ -198,6 +211,7 @@ onMounted(() => {
   fetchRooms();
   updateRoomExtras();
 });
+
 </script>
 
 <style scoped>
