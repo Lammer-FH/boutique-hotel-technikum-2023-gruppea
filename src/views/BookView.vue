@@ -8,7 +8,7 @@
   <b-row>
     <b-col md="6" id="booking">
       <div class="booking-search">
-        <b-form @submit.prevent="submitForm">
+        <b-form>
           <!-- Check-in Datum -->
           <b-form-group label="Check-in Datum:" label-for="checkIn">
             <b-form-input type="date" id="checkIn" v-model="checkIn" required></b-form-input>

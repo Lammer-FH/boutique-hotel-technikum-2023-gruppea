@@ -3,8 +3,6 @@
     <template #modal-title>
       Zimmer Buchung
     </template>
-
-    <!-- Box für ausgewähltes Datum und Zimmer -->
     <div class="selected-info-box">
       Check-in Datum: {{ checkIn }}
       <br>
@@ -45,13 +43,17 @@
         <b-form-radio-group v-model="selectedBreakfastOption" :options="['Ja', 'Nein']" required></b-form-radio-group>
       </b-form-group>
 
-      <b-button type="submit" variant="success">Bestätigen</b-button>
+      <b-button @click="displayConfirmation" variant="success">Bestätigen</b-button>
+      <ConfirmationModal :showConfirmationModal="showConfirmationModal"
+        @update:showConfirmationModal="showConfirmationModal = $event" @confirmed="handleConfirmed" @edit="handleEdit" />
+
     </b-form>
   </b-modal>
 </template>
 
 <script setup>
 import { ref, defineProps, computed, toRefs, watch } from 'vue';
+import ConfirmationModal from './ConfirmationModal.vue';
 
 const props = defineProps({
   numberOfAdults: Number,
@@ -64,8 +66,9 @@ const props = defineProps({
   selectedRoom: [String, Number]
 });
 
-const { numberOfAdults, numberOfChildren, checkIn, checkOut, selectedRoom } = toRefs(props);
+const showConfirmationModal = ref(false);
 
+const { numberOfAdults, numberOfChildren, checkIn, checkOut, selectedRoom } = toRefs(props);
 const showModal = ref(false);
 
 const totalGuests = computed(() => {
@@ -75,42 +78,64 @@ const totalGuests = computed(() => {
   return total >= 0 ? total : 0;
 });
 
-const guestDetails = ref([]);
+watch([numberOfAdults, numberOfChildren], () => {
+  initializeGuestDetails();
+});
+
+const displayConfirmation = () => {
+  console.log("displayConfirmation wurde aufgerufen");
+  showConfirmationModal.value = true;
+};
+
+const bookingSuccess = ref(false);
+const handleConfirmed = () => {
+  console.log("Event 'confirmed' empfangen");
+  // Dein Code zur Bestätigung der Buchung
+};
+
+const handleEdit = () => {
+  console.log("Event 'edit' empfangen");
+  // Dein Code zur Bearbeitung der Buchung
+};
+
+// Für Testdaten
+const guestDetails = ref([
+  { firstName: 'John', lastName: 'Doe', birthday: '1990-01-01' }
+]);
+const email = ref("test@example.com");
+const emailConfirm = ref("test@example.com");
+const selectedBreakfastOption = ref("Ja");
 
 const initializeGuestDetails = () => {
-  guestDetails.value = Array.from({ length: totalGuests.value }, () => ({ firstName: '', lastName: '', birthday: '' }));
+  if (guestDetails.value.length === 0) {
+    guestDetails.value = Array.from({ length: totalGuests.value }, () => ({ firstName: '', lastName: '', birthday: '' }));
+  }
 };
 
 // Aufruf der Funktion, um guestDetails zu initialisieren
 initializeGuestDetails();
 
-watch([numberOfAdults, numberOfChildren], () => {
-  initializeGuestDetails();
-});
+// ... Rest des Codes
 
-const showConfirmationModal = ref(false);
+// const selectedBreakfastOption = ref(null); 
+// const guestDetails = ref([]);
+// const email = ref("");
+// const emailConfirm = ref("");
+// const initializeGuestDetails = () => {
+//   guestDetails.value = Array.from({ length: totalGuests.value }, () => ({ firstName: '', lastName: '', birthday: '' }));
+// };
 
-const displayConfirmation = () => {
-  // Setze showConfirmationModal auf true, um die Modal anzuzeigen
-  showConfirmationModal.value = true;
-};
-
-const bookingSuccess = ref(false);
-const selectedBreakfastOption = ref(null); // Initialwert ist null
-const email = ref("");
-const emailConfirm = ref("");
-
+// // Aufruf der Funktion, um guestDetails zu initialisieren
+// initializeGuestDetails();
 const submitBookingForm = () => {
   if (email.value !== emailConfirm.value) {
     console.log("Die E-Mail-Adressen stimmen nicht überein.");
     return;
   }
-
   if (!selectedBreakfastOption.value) {
     console.log('Bitte wähle eine Option für das Frühstück aus.');
     return;
   }
-
   console.log('Formular wurde gesendet');
   bookingSuccess.value = true;
 };
