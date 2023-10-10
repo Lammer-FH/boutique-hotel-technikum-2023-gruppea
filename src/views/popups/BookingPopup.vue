@@ -46,7 +46,8 @@
 
       <b-button @click="displayConfirmation" variant="success">Bestätigen</b-button>
       <ConfirmationModal :showConfirmationModal="showConfirmationModal"
-        @update:showConfirmationModal="showConfirmationModal = $event" @confirmed="handleConfirmed" @edit="handleEdit" />
+        @update:showConfirmationModal="showConfirmationModal = $event" @confirmed="handleConfirmed" @edit="handleEdit"
+        :checkIn="checkIn" :checkOut="checkOut" :selectedRoom="selectedRoom" />
 
     </b-form>
   </b-modal>
