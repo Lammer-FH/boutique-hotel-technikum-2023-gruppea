@@ -3,6 +3,7 @@
     <template #modal-title>
       Zimmer Buchung
     </template>
+    Total: {{ totalGuests }}
     <div class="selected-info-box">
       Check-in Datum: {{ checkIn }}
       <br>
@@ -105,6 +106,10 @@ const guestDetails = ref([
 const email = ref("test@example.com");
 const emailConfirm = ref("test@example.com");
 const selectedBreakfastOption = ref("Ja");
+
+watch(totalGuests, () => {
+  guestDetails.value = Array.from({ length: totalGuests.value }, () => ({ firstName: '', lastName: '', birthday: '' }));
+});
 
 const initializeGuestDetails = () => {
   if (guestDetails.value.length === 0) {
