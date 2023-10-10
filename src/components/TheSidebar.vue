@@ -55,8 +55,7 @@ const toggleSidebar = () => {
     left: 0;
     width: 100vw;
     /* 21.125rem; */
-    min-height: 80vh;
-    max-height: 100vh;
+    height: 100vh;
     background-color: #111;
     opacity: 93%;
     /* background-color: hsla(160, 100%, 37%, 1); */
