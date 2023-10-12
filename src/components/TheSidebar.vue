@@ -39,7 +39,7 @@ const toggleSidebar = () => {
     display: block;
     /* background: #000; */
     border: transparent;
-    font-size: xx-large;
+    font-size: xxx-large;
 
 }
 

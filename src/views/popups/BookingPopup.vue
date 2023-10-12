@@ -45,9 +45,13 @@
       </b-form-group>
 
       <b-button @click="displayConfirmation" variant="success">Bestätigen</b-button>
+      <!-- <ConfirmationModal :showConfirmationModal="showConfirmationModal"
+        @update:showConfirmationModal="showConfirmationModal = $event" @confirmed="handleConfirmed" @edit="handleEdit"
+        :checkIn="checkIn" :checkOut="checkOut" :selectedRoom="selectedRoom" /> -->
       <ConfirmationModal :showConfirmationModal="showConfirmationModal"
         @update:showConfirmationModal="showConfirmationModal = $event" @confirmed="handleConfirmed" @edit="handleEdit"
-        :checkIn="checkIn" :checkOut="checkOut" :selectedRoom="selectedRoom" />
+        :checkIn="checkIn" :checkOut="checkOut" :selectedRoom="selectedRoom" :guestDetails="guestDetails" />
+
 
     </b-form>
   </b-modal>
@@ -159,5 +163,9 @@ const submitBookingForm = () => {
 
 form {
   font-size: small;
+}
+
+button.btn.btn-success.btn-md {
+    width: -webkit-fill-available;
 }
 </style>
