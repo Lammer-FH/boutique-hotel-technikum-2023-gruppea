@@ -1,5 +1,6 @@
 <template>
-    <b-modal :model-value="showConfirmationModal" @update:modelValue="$emit('update:showConfirmationModal', $event)" hide-footer>
+    <b-modal :model-value="showConfirmationModal" @update:modelValue="$emit('update:showConfirmationModal', $event)"
+        hide-footer>
 
         <template #modal-title>
             Buchungsbestätigung
@@ -9,11 +10,10 @@
             <br>
             Check-out: {{ checkOut }}
             <br>
-            1x {{ selectedRoom }}
+            Zimmer: {{ selectedRoom }}
         </div>
         <br> Gästedaten: <br>
         <div v-for="(guest, index) in guestDetails" :key="index">
-            
             <div>{{ `(Gast ${index + 1}): ${guest.firstName} ${guest.lastName}, ${guest.birthday}` }}</div>
         </div>
         <br>
@@ -21,7 +21,8 @@
             <div>
                 <b-button @click="confirmBooking" variant="success">Buchung bestätigen</b-button>
             </div>
-            <ShowConfirmation :model-value="showConfirmation" @update:modelValue="showConfirmation = $event" />
+            <ShowConfirmation :model-value="showConfirmation" @update:modelValue="showConfirmation = $event"
+                :checkIn="checkIn" :checkOut="checkOut" :selectedRoom="selectedRoom" :guestDetails="guestDetails" />
             <div>
                 <b-button @click="editBooking" variant="warning">Bearbeiten</b-button>
             </div>
@@ -46,11 +47,11 @@ const props = defineProps({
 });
 
 const confirmBooking = () => {
-  console.log("Buchung bestätigen wurde geklickt");
-  // Das ShowConfirmation Modal öffnen
-  showConfirmation.value = true; // Hier aktualisierst du die ref
-  emit('confirmed');
-  emit('update:showConfirmationModal', false);
+    console.log("Buchung bestätigen wurde geklickt");
+    showConfirmation.value = true;
+    emit('confirmed');
+    emit('update:showConfirmationModal', false);
+    emit('close-booking-popup');
 };
 
 const editBooking = () => {
@@ -70,6 +71,5 @@ const editBooking = () => {
     position: inherit;
     width: -webkit-fill-available;
     padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
-
 }
 </style>
