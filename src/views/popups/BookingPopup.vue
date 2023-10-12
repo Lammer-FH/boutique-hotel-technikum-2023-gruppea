@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="booking-modal" v-model="showModal">
+  <b-modal id="booking-modal" v-model="showModal" hide-footer>
     <template #modal-title>
       Zimmer Buchung
     </template>

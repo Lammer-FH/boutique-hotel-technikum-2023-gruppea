@@ -1,5 +1,5 @@
 <template>
-    <b-modal :model-value="showConfirmationModal" @update:modelValue="$emit('update:showConfirmationModal', $event)">
+    <b-modal :model-value="showConfirmationModal" @update:modelValue="$emit('update:showConfirmationModal', $event)" hide-footer>
 
         <template #modal-title>
             Buchungsbestätigung
