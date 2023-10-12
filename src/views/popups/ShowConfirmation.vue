@@ -69,6 +69,7 @@ const closeModal = () => {
   border-radius: 5px;
   background-color: #9bb8e5;
   padding: 10px;
+  color: #343a40;
 }
 </style>
   
