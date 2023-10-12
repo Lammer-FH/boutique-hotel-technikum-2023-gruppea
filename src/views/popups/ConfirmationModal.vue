@@ -1,9 +1,4 @@
 <template>
-    <div v-if="confirmationSuccess">
-    Buchung erfolgreich!
-    <button @click="closeModal">OK</button>
-  </div>
-  <div v-else>
     <b-modal :model-value="showConfirmationModal" @update:modelValue="$emit('update:showConfirmationModal', $event)">
 
         <template #modal-title>
@@ -32,7 +27,6 @@
         </div>
 
     </b-modal>
-  </div>
 </template>
   
 <script setup>
