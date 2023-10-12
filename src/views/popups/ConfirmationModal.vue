@@ -21,6 +21,7 @@
             <div>
                 <b-button @click="confirmBooking" variant="success">Buchung bestätigen</b-button>
             </div>
+            <ShowConfirmation :model-value="showConfirmation" @update:modelValue="showConfirmation = $event" />
             <div>
                 <b-button @click="editBooking" variant="warning">Bearbeiten</b-button>
             </div>
@@ -30,7 +31,11 @@
 </template>
   
 <script setup>
-import { defineEmits, defineProps } from 'vue';
+import { ref, defineEmits, defineProps } from 'vue';
+import ShowConfirmation from './ShowConfirmation.vue';
+
+const emit = defineEmits();
+const showConfirmation = ref(false);
 
 const props = defineProps({
     showConfirmationModal: Boolean,
@@ -40,12 +45,12 @@ const props = defineProps({
     guestDetails: Array
 });
 
-const emit = defineEmits();
-
 const confirmBooking = () => {
-    console.log("Buchung bestätigen wurde geklickt");
-    emit('confirmed');
-    emit('update:showConfirmationModal', false);
+  console.log("Buchung bestätigen wurde geklickt");
+  // Das ShowConfirmation Modal öffnen
+  showConfirmation.value = true; // Hier aktualisierst du die ref
+  emit('confirmed');
+  emit('update:showConfirmationModal', false);
 };
 
 const editBooking = () => {
