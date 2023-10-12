@@ -54,11 +54,11 @@ const closeModal = () => {
   display: flex;
   justify-content: center;
   color: aliceblue;
-  border: 1px solid #f3494cda;
   border-radius: 5px;
-  background-color: #f3494cda;
+  background-color: #198754;
   padding: 10px;
   margin-bottom: 20px;
+  color: #000;
 }
 
 .bookingDetails {
@@ -69,7 +69,6 @@ const closeModal = () => {
   border-radius: 5px;
   background-color: #9bb8e5;
   padding: 10px;
-  color: #343a40;
 }
 </style>
   
