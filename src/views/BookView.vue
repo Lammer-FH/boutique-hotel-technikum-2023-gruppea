@@ -32,7 +32,7 @@
 
           <!-- Button für das Popup eingefügt -->
           <b-button @click="showModal = true" variant="primary">Buchen</b-button>
-          <BookingPopup v-model="showModal" :numberOfAdults="adults" :numberOfChildren="children" :checkIn="checkIn"
+          <BookingPopup v-model="showModal" :hideModal="hideModal" :numberOfAdults="adults" :numberOfChildren="children" :checkIn="checkIn"
             :checkOut="checkOut" :selectedRoom="selectedRoomName" />
           Adults: {{ adults }}
           Children: {{ children }}
@@ -93,6 +93,8 @@ const selectedRoomDetails = computed(() => {
 const selectedRoomName = computed(() => {
   return selectedRoomDetails.value ? selectedRoomDetails.value.roomsName.replace('Default ', '') : null;
 });
+
+
 
 function getDatesBetween(startDate, endDate) {
   const dates = [];
@@ -157,6 +159,9 @@ const selectedRoomImagePath = computed(() => {
   return null;
 });
 
+function hideModal() {
+  showModal.value = !showModal.value;
+}
 function updateRoomExtras() {
   if (selectedRoom.value) {
     const selected = rooms.value.find(room => room.id === selectedRoom.value);

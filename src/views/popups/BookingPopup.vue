@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="booking-modal" v-model="showModal" hide-footer>
+  <b-modal id="booking-modal" ref="firstModal" v-model="showModal" hide-footer>
     <template #modal-title>
       Zimmer Buchung
     </template>
@@ -69,13 +69,14 @@ const props = defineProps({
   },
   checkIn: String,
   checkOut: String,
-  selectedRoom: [String, Number]
+  selectedRoom: [String, Number],
+  hideModal: Function,
 });
 
 const showConfirmationModal = ref(false);
 
 const { numberOfAdults, numberOfChildren, checkIn, checkOut, selectedRoom } = toRefs(props);
-const showModal = ref(false);
+let showModal = ref(false);
 
 const totalGuests = computed(() => {
   const adultCount = parseInt(numberOfAdults.value, 10);
@@ -96,6 +97,7 @@ const displayConfirmation = () => {
 const bookingSuccess = ref(false);
 const handleConfirmed = () => {
   console.log("Event 'confirmed' empfangen");
+  props.hideModal();
   // Dein Code zur Bestätigung der Buchung
 };
 
