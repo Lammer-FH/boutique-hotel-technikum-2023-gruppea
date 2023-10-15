@@ -36,7 +36,6 @@
             :checkOut="checkOut" :selectedRoom="selectedRoomName" />
           Adults: {{ adults }}
           Children: {{ children }}
-
         </b-form>
       </div>
     </b-col>
@@ -282,7 +281,7 @@ img {
 @media (min-width: 1025px) {
   .row {
     width: 100vw;
-    max-width: min(calc(100vw - 20px), 1140px);
+    max-width: min(calc(100vw - 20px), 1190px);
   }
 }
 

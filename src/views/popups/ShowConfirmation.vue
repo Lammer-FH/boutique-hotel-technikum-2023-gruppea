@@ -20,7 +20,7 @@
     </div>
     <br>
     <div class="confirmButton">
-      <b-button @click="closeModal" variant="success">OK</b-button>
+      <b-button @click="() => $router.push('/')" variant="success">OK</b-button>
     </div>
   </b-modal>
 </template>
