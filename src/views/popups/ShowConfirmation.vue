@@ -17,17 +17,30 @@
       <div v-for="(guest, i) in props.guestDetails" :key="i">
         {{ `Gast ${i + 1}: ${guest.firstName} ${guest.lastName}, Geburtstag: ${guest.birthday}` }}
       </div>
+      <img :src="roomImage" alt="Zimmerbild">
+      <div v-for="extra in roomExtras" :key="extra">
+        {{ extra }} 
+      </div>
     </div>
     <br>
     <div class="confirmButton">
-      <b-button @click="() => $router.push('/')" variant="success">OK</b-button>
+      <b-button >OK</b-button>
+
+      <!-- <b-button @click="() => $router.push('/')" variant="success">OK</b-button> -->
     </div>
   </b-modal>
 </template>
   
 <script setup>
 import { ref, defineEmits, defineProps } from 'vue';
+import { computed } from 'vue'
+import { useRoomStore } from '@/stores/roomStore' // Pfad zu deinem Pinia-Store
 
+const roomStore = useRoomStore()
+
+const roomImage = computed(() => roomStore.selectedRoomDetails.image)
+const roomExtras = computed(() => roomStore.selectedRoomDetails.extras)
+const roomDescription = computed(() => roomStore.selectedRoomDetails.description)
 const showConfirmation = ref(false);
 const emit = defineEmits();
 
