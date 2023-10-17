@@ -1,18 +1,35 @@
+// Note: This is the sidebar component. It is used in the App.vue file.   
 <script setup>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router';
+import { defineProps } from 'vue';
 
 let showSidebar = ref(false);
 
 const toggleSidebar = () => {
     showSidebar.value = !showSidebar.value;
 }
+
+const props = defineProps({
+    showSidebar: {
+        type: Boolean,
+        default: false
+    },
+    toggleSidebar: {
+        type: Function,
+        default: () => { }
+    },
+    id: {
+        type: String,
+        default: ''
+    }
+})
 </script>
 
 <template>
     <button @click="toggleSidebar" class="btn btn">☰</button>
 
-    <div v-if="showSidebar" class="sidebar">
+    <div v-if="showSidebar" :id="id" class="sidebar">
         <img alt="Logo" class="sidebar-logo" src="@/assets/logo.svg" width="50" height="50" />
 
         <button @click="toggleSidebar" class="close-btn">✖</button>
@@ -172,6 +189,7 @@ nav#mainnav a {
         justify-content: center;
     }
 }
+
 @media (min-width: 1024px) {
     /* .close-btn {
 
