@@ -8,37 +8,38 @@
   <b-row>
     <b-col md="6" id="booking">
       <div class="booking-search">
-        <b-form @submit.prevent="submitForm">
-
+        <b-form>
           <!-- Check-in Datum -->
           <b-form-group label="Check-in Datum:" label-for="checkIn">
             <b-form-input type="date" id="checkIn" v-model="checkIn" required></b-form-input>
           </b-form-group>
-
           <!-- Check-out Datum -->
           <b-form-group label="Check-out Datum:" label-for="checkOut">
             <b-form-input type="date" id="checkOut" v-model="checkOut" required></b-form-input>
           </b-form-group>
-
           <div>
             <div>Erwachsene (über 12 Jahre):</div>
             <div><b-form-input type="number" id="adults" v-model="adults" min="1" required></b-form-input></div>
           </div>
-
           <div>
             <div>Angerhörige (unter 12 Jahre):</div>
             <div><b-form-input type="number" id="children" v-model="children" min="0" required></b-form-input></div>
           </div>
-
           <b-form-group class="mt-3" label="Zimmerauswahl:" label-for="room">
             <b-form-select id="room" v-model="selectedRoom" :options="roomOptions"
               @change="updateRoomExtras"></b-form-select>
-
           </b-form-group>
-          <b-button type="submit" variant="primary">Buchen</b-button>
+
+          <!-- Button für das Popup eingefügt -->
+          <b-button @click="bookRoom" variant="primary">Buchen</b-button>
+          <BookingPopup v-model="showModal" :hideModal="hideModal" :numberOfAdults="adults" :numberOfChildren="children" :checkIn="checkIn"
+            :checkOut="checkOut" :selectedRoom="selectedRoomName" />
+          <!-- Adults: {{ adults }}
+          Children: {{ children }} -->
         </b-form>
       </div>
     </b-col>
+
     <b-col md="6" id="imgId">
       <div v-if="selectedRoomExtras.length > 0">
         <div>
@@ -72,20 +73,34 @@ import { ref, onMounted, computed, watch } from 'vue';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import axios from 'axios';
 import bookingsData from '../bookings.json';
+import roomsData from '../rooms.json';
+import BookingPopup from './popups/BookingPopup.vue';
 
+const showModal = ref(false);
 const checkIn = ref(new Date().toISOString().split('T')[0]);
 const checkOut = ref(new Date(new Date().getTime() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
-const adults = ref(1);
-const children = ref(0);
 const rooms = ref([]);
 const selectedRoom = ref(null);
 const selectedRoomExtras = ref([]);
+const adults = ref(1);
+const children = ref(0);
+
+const bookRoom = () => {
+  showModal.value = true;
+}
+
+const selectedRoomDetails = computed(() => {
+  return rooms.value.find(room => room.id === selectedRoom.value);
+});
+
+const selectedRoomName = computed(() => {
+  return selectedRoomDetails.value ? selectedRoomDetails.value.roomsName.replace('Default ', '') : null;
+});
 
 function getDatesBetween(startDate, endDate) {
   const dates = [];
   let currentDate = new Date(startDate);
   const stopDate = new Date(endDate);
-
   while (currentDate <= stopDate) {
     dates.push(new Date(currentDate).toISOString().split('T')[0]);
     currentDate.setDate(currentDate.getDate() + 1);
@@ -98,23 +113,32 @@ function getBookedRoomsForPeriod(start, end) {
   const allBookedRooms = bookingsData
     .filter(booking => dates.includes(booking.from))
     .map(booking => booking.rooms_id);
-
   return [...new Set(allBookedRooms)];
 }
 
-async function fetchRooms() {
+// Fetch rooms data from local JSON instead of API
+function fetchRooms() {
   try {
-    const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
-    rooms.value = response.data;
-    selectedRoom.value = rooms.value[0]?.id || null;  
-    updateRoomExtras(); 
+    rooms.value = roomsData;
+    selectedRoom.value = rooms.value[0]?.id || null;
+    updateRoomExtras();
   } catch (error) {
     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
   }
 }
 
-const bookedRooms = ref([]);
+// async function fetchRooms() {
+//   try {
+//     const response = await axios.get('https://boutique-hotel.helmuth-lammer.at/api/v1/rooms');
+//     rooms.value = response.data;
+//     selectedRoom.value = rooms.value[0]?.id || null;  
+//     updateRoomExtras(); 
+//   } catch (error) {
+//     console.error('Fehler beim Abrufen der Zimmerdaten:', error);
+//   }
+// }
 
+const bookedRooms = ref([]);
 const roomOptions = computed(() => {
   const availableRooms = rooms.value.filter(room => !bookedRooms.value.includes(room.id));
   return [
@@ -126,7 +150,6 @@ const roomOptions = computed(() => {
   ];
 });
 
-
 const selectedRoomImagePath = computed(() => {
   if (selectedRoom.value) {
     const selectedRoomDetails = rooms.value.find(room => room.id === selectedRoom.value);
@@ -137,6 +160,9 @@ const selectedRoomImagePath = computed(() => {
   return null;
 });
 
+function hideModal() {
+  showModal.value = !showModal.value;
+}
 function updateRoomExtras() {
   if (selectedRoom.value) {
     const selected = rooms.value.find(room => room.id === selectedRoom.value);
@@ -145,7 +171,7 @@ function updateRoomExtras() {
       for (const extra of selected.extras) {
         const [key, value] = Object.entries(extra)[0];
         if (value === 1) {
-          selectedRoomExtras.value.push({ [key]: value }); 
+          selectedRoomExtras.value.push({ [key]: value });
         }
       }
     }
@@ -164,7 +190,6 @@ const EXTRAS = {
   BREAKFAST: "breakfast",
   HANDICAPPED_ACCESSIBLE: "handicapped accessible"
 };
-
 function extraToIcon(extraName) {
   const mapping = {
     [EXTRAS.BATHROOM]: { library: 'fa', icon: 'fa fa-bath' },
@@ -182,19 +207,17 @@ function extraToIcon(extraName) {
 watch([checkIn, checkOut], () => {
   bookedRooms.value = getBookedRoomsForPeriod(checkIn.value, checkOut.value);
 });
-
 watch(checkIn, () => {
   checkOut.value = checkIn.value;
 });
-
 watch(selectedRoom, () => {
   updateRoomExtras();
 });
-
 onMounted(() => {
   fetchRooms();
   updateRoomExtras();
 });
+
 </script>
 
 <style scoped>
@@ -203,8 +226,6 @@ onMounted(() => {
 }
 
 .btn {
-  position: relative;
-  object-fit: cover;
   width: -webkit-fill-available;
 }
 
@@ -257,13 +278,12 @@ img {
   margin-top: calc(-1 * var(--bs-gutter-y));
   margin-right: calc(-0.5 * var(--bs-gutter-x));
   margin-left: calc(-0.5 * var(--bs-gutter-x));
-
 }
 
 @media (min-width: 1025px) {
   .row {
     width: 100vw;
-    max-width: min(calc(100vw - 20px), 1140px);
+    max-width: min(calc(100vw - 20px), 1190px);
   }
 }
 

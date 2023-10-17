@@ -1,3 +1,4 @@
+<!-- RoomsView.vue -->
 <template>
   <div class="container mt-5">
     <div class="rooms">
@@ -13,18 +14,8 @@
           <div class="room-description">
             {{ getDescription(room.roomsName) }}
           </div>
-          <div class="room-extras">
-            <i v-for="extraObj in filterExtras(room.extras)" :key="Object.keys(extraObj)[0]">
-              <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
-              <button class="icon-button">
-                <!-- Für Font Awesome Icons -->
-                <i v-if="extraToIcon(extraObj).library === 'fa'" :class="extraToIcon(extraObj).icon"></i>
-                <!-- Für Bootstrap Icons -->
-                <i v-else-if="extraToIcon(extraObj).library === 'bi'" :class="extraToIcon(extraObj).icon"></i>
-                <span class="tooltip-text">{{ Object.keys(extraObj)[0] }}</span>
-              </button>
-            </i>
-          </div>
+          <RoomExtrasIcons :roomExtras="filterExtras(room.extras)" />
+
         </div>
         <div class="load-more-container">
           <button @click="loadMoreRooms" v-if="firstFiveRooms.length < rooms.length" class="btn btn-primary">
@@ -40,12 +31,12 @@
 </template>
 
 <script setup>
-import "bootstrap-icons/font/bootstrap-icons.css";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import RoomExtrasIcons from '@/components/RoomExtrasIcons.vue';
 
-const showPopup = ref(false); 
-const popupImageSrc = ref(""); 
+const showPopup = ref(false);
+const popupImageSrc = ref("");
 
 const togglePopup = (imageSrc) => {
   showPopup.value = !showPopup.value;
@@ -63,35 +54,6 @@ const filterExtras = (extras) => {
     const key = Object.keys(extra)[0];
     return extra[key] === 1;
   });
-};
-
-const EXTRAS = {
-  BATHROOM: "bathroom",
-  MINIBAR: "minibar",
-  TELEVISION: "television",
-  LIVINGROOM: "livingroom",
-  AIRCONDITION: "aircondition",
-  WIFI: "wifi",
-  BREAKFAST: "breakfast",
-  HANDICAPPED_ACCESSIBLE: "handicapped accessible",
-};
-
-const extraToIcon = (extraName) => {
-  const mapping = {
-    [EXTRAS.BATHROOM]: { library: "fa", icon: "fa fa-bath" },
-    [EXTRAS.MINIBAR]: { library: "fa", icon: "fa-solid fa-wine-glass" },
-    [EXTRAS.TELEVISION]: { library: "bi", icon: "bi-tv" },
-    [EXTRAS.LIVINGROOM]: { library: "fa", icon: "fa-solid fa-couch" },
-    [EXTRAS.AIRCONDITION]: { library: "fa", icon: "fa-solid fa-fan" },
-    [EXTRAS.WIFI]: { library: "bi", icon: "bi-wifi" },
-    [EXTRAS.BREAKFAST]: { library: "fa", icon: "fa-solid fa-mug-saucer" },
-    [EXTRAS.HANDICAPPED_ACCESSIBLE]: {
-      library: "bi",
-      icon: "bi-person-wheelchair",
-    },
-  };
-  const key = Object.keys(extraName)[0];
-  return mapping[key] || { library: "bi", icon: "bi-question" };
 };
 
 const rooms = ref([]);
@@ -193,7 +155,7 @@ onMounted(() => {
   margin: 8px 0;
 }
 
-.room-extras i {
+/* .room-extras i {
   font-size: 24px;
   margin: 0 5px;
   color: #4382e2e4;
@@ -213,7 +175,7 @@ onMounted(() => {
   gap: 15px;
   flex-grow: 1;
   align-items: baseline;
-}
+} */
 
 .room-grid {
   display: flex;
