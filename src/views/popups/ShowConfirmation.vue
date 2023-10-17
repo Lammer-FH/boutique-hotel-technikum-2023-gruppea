@@ -8,19 +8,27 @@
     </div>
     <div class="bookingDetails">
       <div>
-        Check-in: {{ props.checkIn }}
+        Check-in: {{ checkIn }}
         <br>
-        Check-out: {{ props.checkOut }}
+        Check-out: {{ checkOut }}
         <br>
-        Zimmer: {{ props.selectedRoom }}
+        Zimmer: {{ selectedRoom }}
       </div>
-      <div v-for="(guest, i) in props.guestDetails" :key="i">
+      <div v-for="(guest, i) in guestDetails" :key="i">
         {{ `Gast ${i + 1}: ${guest.firstName} ${guest.lastName}, Geburtstag: ${guest.birthday}` }}
       </div>
-      <!-- <img :src="roomImage" alt="Zimmerbild"> -->
-      <!-- <div v-for="extra in roomExtras" :key="extra">
-        {{ extra }}
-      </div> -->
+      <div>
+        <img :src="roomImage" alt="Zimmerbild">
+        <div>
+          <h3>Zimmer Titel: {{ roomTitle }}</h3>
+          <p>Beschreibung: {{ roomDescription }}</p>
+          <div v-if="roomExtras && roomExtras.length">
+            <h4>Extras:</h4>
+            <!-- <pre>{{ roomExtras }}</pre> -->
+            <RoomExtrasIcons :roomExtras="roomExtras" />
+          </div>
+        </div>
+      </div>
     </div>
     <br>
     <div class="confirmButton">
@@ -28,17 +36,17 @@
     </div>
   </b-modal>
 </template>
-  
+
 <script setup>
-import { ref, defineEmits, defineProps } from 'vue';
-import { computed } from 'vue'
-import { useRoomStore } from '@/stores/roomStore' // Pfad zu deinem Pinia-Store
+import { ref, defineEmits, defineProps, computed } from 'vue';
+import { useRoomStore } from '@/stores/roomStore';
 
-const roomStore = useRoomStore()
+const roomStore = useRoomStore();
 
-const roomImage = computed(() => roomStore.selectedRoomDetails.image)
-const roomExtras = computed(() => roomStore.selectedRoomDetails.extras)
-const roomDescription = computed(() => roomStore.selectedRoomDetails.description)
+const roomImage = computed(() => roomStore.getSelectedRoomDetails.image);
+const roomExtras = computed(() => roomStore.getRoomExtras);
+const roomDescription = computed(() => roomStore.getRoomDescription);
+const roomTitle = computed(() => roomStore.getRoomTitle);
 const showConfirmation = ref(false);
 const emit = defineEmits();
 
@@ -49,16 +57,21 @@ const props = defineProps({
   selectedRoom: [String, Number],
   guestDetails: Array
 });
-
-const closeModal = () => {
-  emit('update:showConfirmation', false);
-};
 </script>
   
 <style scoped>
 .confirmButton {
   display: flex;
   justify-content: center;
+}
+
+.room-extras{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 1rem;
+    flex-grow: 1;
 }
 
 .buchungErfolgreich {
