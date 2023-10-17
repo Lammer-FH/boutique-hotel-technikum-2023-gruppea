@@ -34,8 +34,8 @@
           <b-button @click="bookRoom" variant="primary">Buchen</b-button>
           <BookingPopup v-model="showModal" :hideModal="hideModal" :numberOfAdults="adults" :numberOfChildren="children" :checkIn="checkIn"
             :checkOut="checkOut" :selectedRoom="selectedRoomName" />
-          Adults: {{ adults }}
-          Children: {{ children }}
+          <!-- Adults: {{ adults }}
+          Children: {{ children }} -->
         </b-form>
       </div>
     </b-col>
@@ -75,8 +75,6 @@ import axios from 'axios';
 import bookingsData from '../bookings.json';
 import roomsData from '../rooms.json';
 import BookingPopup from './popups/BookingPopup.vue';
-import { useRoomStore } from '@/stores/roomStore' // Pfad zu deinem Pinia-Store
-
 
 const showModal = ref(false);
 const checkIn = ref(new Date().toISOString().split('T')[0]);
@@ -86,18 +84,8 @@ const selectedRoom = ref(null);
 const selectedRoomExtras = ref([]);
 const adults = ref(1);
 const children = ref(0);
-const roomStore = useRoomStore();
-
-const updateSelectedRoomDetails = () => {
-  roomStore.setSelectedRoomDetails({
-    image: selectedRoomImagePath.value,
-    extras: selectedRoomExtras.value,
-    description: selectedRoomDetails.value ? selectedRoomDetails.value.description : '' // Beispiel
-  });
-}
 
 const bookRoom = () => {
-  updateSelectedRoomDetails();
   showModal.value = true;
 }
 
@@ -108,8 +96,6 @@ const selectedRoomDetails = computed(() => {
 const selectedRoomName = computed(() => {
   return selectedRoomDetails.value ? selectedRoomDetails.value.roomsName.replace('Default ', '') : null;
 });
-
-
 
 function getDatesBetween(startDate, endDate) {
   const dates = [];

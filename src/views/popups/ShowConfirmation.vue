@@ -17,16 +17,14 @@
       <div v-for="(guest, i) in props.guestDetails" :key="i">
         {{ `Gast ${i + 1}: ${guest.firstName} ${guest.lastName}, Geburtstag: ${guest.birthday}` }}
       </div>
-      <img :src="roomImage" alt="Zimmerbild">
-      <div v-for="extra in roomExtras" :key="extra">
-        {{ extra }} 
-      </div>
+      <!-- <img :src="roomImage" alt="Zimmerbild"> -->
+      <!-- <div v-for="extra in roomExtras" :key="extra">
+        {{ extra }}
+      </div> -->
     </div>
     <br>
     <div class="confirmButton">
-      <b-button >OK</b-button>
-
-      <!-- <b-button @click="() => $router.push('/')" variant="success">OK</b-button> -->
+      <b-button @click="() => $router.push('/')" variant="success">OK</b-button>
     </div>
   </b-modal>
 </template>

@@ -3,7 +3,7 @@
     <template #modal-title>
       Zimmer Buchung
     </template>
-    Total: {{ totalGuests }}
+    <!-- Total: {{ totalGuests }} -->
     <div class="selected-info-box">
       Check-in Datum: {{ checkIn }}
       <br>

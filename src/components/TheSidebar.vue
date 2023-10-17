@@ -133,11 +133,14 @@ const props = defineProps({
     color: white;
     font-size: 20px;
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 20px;
+    right: 20px;
     cursor: pointer;
     color: #ffffff;
     background: transparent;
+    font: -webkit-mini-control;
+    object-position: right;
+    font-size: 30px;
 }
 
 @keyframes toright {
