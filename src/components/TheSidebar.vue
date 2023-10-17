@@ -27,7 +27,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <button @click="toggleSidebar" class="btn btn">☰</button>
+    <button @click="toggleSidebar" class="btn btn toggle">☰</button>
 
     <div v-if="showSidebar" :id="id" class="sidebar">
         <img alt="Logo" class="sidebar-logo" src="@/assets/logo.svg" width="50" height="50" />
@@ -54,10 +54,12 @@ const props = defineProps({
 <style scoped>
 .btn {
     display: block;
-    /* background: #000; */
     border: transparent;
     font-size: xxx-large;
-
+}
+button.btn.btn.toggle {
+    width: 125px;
+    text-align: end;
 }
 
 .sidebar[style*="display: block"] {
