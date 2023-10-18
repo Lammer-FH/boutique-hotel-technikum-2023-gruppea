@@ -283,7 +283,7 @@ img {
 @media (min-width: 1025px) {
   .row {
     width: 100vw;
-    max-width: min(calc(100vw - 20px), 1190px);
+    max-width: min(calc(100vw - 20px), 1040px);
   }
 }
 
