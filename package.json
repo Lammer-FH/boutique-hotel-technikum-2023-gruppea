@@ -27,6 +27,14 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
+<<<<<<< HEAD
     "vite": "^4.5.0"
+=======
+<<<<<<< HEAD
+    "vite": "^4.5.0"
+=======
+    "vite": "^4.4.11"
+>>>>>>> c36f5c7075e5fa96b649b34ff2cb96b7fe3df83d
+>>>>>>> origin/kadir
   }
 }

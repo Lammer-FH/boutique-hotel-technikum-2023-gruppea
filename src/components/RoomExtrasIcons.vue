@@ -54,14 +54,13 @@ export default {
                 },
             };
             const key = Object.keys(extraName)[0];
-            const keyUpperCase = key.toUpperCase();
+            // const keyUpperCase = key.toUpperCase();
             const formattedKey = key.toUpperCase().replace(' ', '_');
             
-            console.log('EXTRAS[key]:', EXTRAS[key]);
-            console.log('key:', key);
+            // console.log('EXTRAS[key]:', EXTRAS[key]);
+            // console.log('key:', key);
             return mapping[EXTRAS[formattedKey]] || { library: "bi", icon: "bi-question" };
             // return mapping[EXTRAS[keyUpperCase]] || { library: "bi", icon: "bi-question" };
-
         };
 
         return {
