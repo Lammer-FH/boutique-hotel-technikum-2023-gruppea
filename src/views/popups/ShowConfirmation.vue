@@ -1,3 +1,4 @@
+<!-- ShowConfirmation.vue -->
 <template>
   <b-modal :model-value="showConfirmation" @update:modelValue="$emit('update:showConfirmation', $event)" hide-footer>
     <template #modal-title>
@@ -40,7 +41,8 @@
 <script setup>
 import { ref, defineEmits, defineProps, computed } from 'vue';
 import { useRoomStore } from '@/stores/roomStore';
-
+// import Directions from './components/Directions.vue';
+// import Contact from './components/Contact.vue';
 const roomStore = useRoomStore();
 const roomImage = ref('');
 const roomExtras = computed(() => roomStore.getRoomExtras);
@@ -94,8 +96,9 @@ const props = defineProps({
   /* padding: 2%; */
   margin: 10px 0 10px 0;
 }
+
 p.descrCSS {
-    text-align: center;
+  text-align: center;
 }
 
 .room-extras {
