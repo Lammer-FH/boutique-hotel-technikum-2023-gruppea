@@ -72,6 +72,9 @@ export default {
 </script>
 
 <style scoped>
+.tooltip-text {
+  text-transform: lowercase; 
+}
 .room-extras {
     display: flex;
     flex-wrap: wrap;
@@ -85,7 +88,7 @@ export default {
     background-color: transparent;
     border: none;
     cursor: pointer;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     color: #0065fcae;
     transition: color 0.3s;
 }
