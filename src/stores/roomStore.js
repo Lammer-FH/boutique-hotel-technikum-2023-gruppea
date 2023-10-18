@@ -3,6 +3,7 @@
 import { defineStore } from 'pinia';
 import { ROOM_TYPES } from '@/stores/roomTypes';
 import axios from 'axios';
+import ROOMS_JSON from '../rooms.json';
 
 export const useRoomStore = defineStore({
   id: '',
@@ -23,6 +24,7 @@ export const useRoomStore = defineStore({
     },
   }),
   getters: {
+    
     getSelectedRoomDetails(state) {
       return state.selectedRoomDetails;
     },
@@ -41,6 +43,11 @@ export const useRoomStore = defineStore({
       } else {
         return "Ein komfortables Zimmer, perfekt für Ihren Aufenthalt";
       }
+    },
+    getRoomImage(state) {
+      // const roomNumber = state.selectedRoomDetails.image;
+      // console.log("!!!!! Room Number", roomNumber);
+      // return require(`src/images/rooms/${roomNumber}.jpg`);
     },
   },
   actions: {
@@ -64,6 +71,37 @@ export const useRoomStore = defineStore({
       } catch (error) {
         console.error("Error fetching rooms:", error);
       }
+    },
+    async fetchRoomImage(roomNumber) {
+      try {
+        const response = await axios.get(`src/images/rooms/${roomNumber}.jpg`, {
+          responseType: 'blob'
+        });
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result);
+          reader.onerror = reject;
+          reader.readAsDataURL(response.data);
+        });
+      } catch (error) {
+        console.error('Es gab einen Fehler beim Laden des Bildes:', error);
+        return null;
+      }
+    },
+    checkExtras(availableExtras, selectedExtras) {
+      for (const selectedExtra of selectedExtras) {
+        const extraName = Object.keys(selectedExtra)[0];
+        const extraValue = selectedExtra[extraName];
+        const matchingExtra = availableExtras.find(
+          (availableExtra) => Object.keys(availableExtra)[0] === extraName
+        );
+
+        if (!matchingExtra || matchingExtra[extraName] !== extraValue) {
+          return false;
+        }
+      }
+
+      return true;
     },
   },
 });
