@@ -31,6 +31,8 @@
         </div>
       </div>
     </div>
+    <div> <Directions /> </div>
+    <div> <Contact /> </div>
     <br>
     <div class="confirmButton">
       <b-button @click="() => $router.push('/')" variant="success">OK</b-button>
@@ -41,8 +43,8 @@
 <script setup>
 import { ref, defineEmits, defineProps, computed } from 'vue';
 import { useRoomStore } from '@/stores/roomStore';
-// import Directions from './components/Directions.vue';
-// import Contact from './components/Contact.vue';
+import Directions from '@/components/Directions.vue';
+import Contact from '@/components/Contact.vue';
 const roomStore = useRoomStore();
 const roomImage = ref('');
 const roomExtras = computed(() => roomStore.getRoomExtras);
@@ -70,6 +72,8 @@ const props = defineProps({
 .confirmButton {
   display: flex;
   justify-content: center;
+  border-top: var(--bs-modal-header-border-width) solid var(--bs-modal-header-border-color);
+  padding-top: 1rem;
 }
 
 .bookingDetails {
