@@ -126,14 +126,13 @@ onMounted(() => {
   border: 1px solid #9bb8e5;
   border-radius: 5px;
   padding: 2%;
-  border-radius: 10px;
 }
 
 .room-box .room-image {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 
