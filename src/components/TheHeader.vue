@@ -6,16 +6,14 @@ import { RouterLink, RouterView } from 'vue-router';
 <template>
     <header>
         <img alt="logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-        <!-- <div>
-            <nav id="mainnav">
-                <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/book">Book</RouterLink>
-                <RouterLink to="/rooms">Rooms</RouterLink>
-                <RouterLink to="/about">About</RouterLink>
-                <RouterLink to="/impressum">Impressum</RouterLink>
-            </nav>
-        </div> -->
+        <div class="button-container">
+            <RouterLink to="/register">
+                <button class="btn btn-success">Registrieren</button>
+            </RouterLink>
+            <RouterLink to="/login">
+                <button class="btn btn-outline-secondary">Anmelden</button>
+            </RouterLink>
+        </div>
     </header>
 </template>
 
@@ -25,18 +23,36 @@ import { RouterLink, RouterView } from 'vue-router';
     right: 10px;
 }
 
-/* nav#mainnav {
-    text-align: center;
-    padding: 10px;
-    z-index: 900;
-} */
-
-
-@media (min-width: 1024px) {
-    
+.button-container {
+    display: inline-block;
+    margin-left: 20px;
 }
 
-/* Bei Bildschirmbreiten über 768px werden die Textbeschreibungen ausgeblendet */
+.btn {
+    margin-right: 10px;
+}
+
+.btn-success RouterLink,
+.btn-outline-secondary RouterLink {
+    color: inherit;
+    text-decoration: inherit;
+}
+
+button.btn.btn-success {
+    background-color: transparent;
+    border-color: #26c6a4;
+    color: #26c6a4;
+    font-weight: bold;
+}
+
+button.btn.btn-outline-secondary {
+    border-color: transparent;
+    color: #9bb8e5;
+    font-weight: bold;
+}
+
+@media (min-width: 1024px) {}
+
 @media (min-width: 769px) {
     nav#mainnav span {
         display: inline;
@@ -45,7 +61,6 @@ import { RouterLink, RouterView } from 'vue-router';
     nav#mainnav a {
         display: inline-block;
         margin: 0 15px;
-        /* Optional: Ein bisschen Abstand zwischen den Icons */
     }
 }
 
