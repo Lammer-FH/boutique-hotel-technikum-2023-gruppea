@@ -2,16 +2,18 @@
 import TheSidebar from './components/TheSidebar.vue';
 import TheHeader from './components/TheHeader.vue';
 import TheOverlay from './components/TheOverlay.vue';
+import TheFooter from './components/TheFooter.vue';
 
 </script>
 
 <template>
-    <header id="mainHeader">
-        <TheHeader id="myHeader" />
-        <TheOverlay id="myOverlay" msg="Boutique Hotel" />
-        <TheSidebar id="mySidebar" />
-    </header>
-    <RouterView />
+  <header id="mainHeader">
+    <TheHeader id="myHeader" />
+    <TheOverlay id="myOverlay" msg="Boutique Hotel" />
+    <TheSidebar id="mySidebar" />
+  </header> 
+  <RouterView />
+  <TheFooter id="myFooter"/>
 </template>
 
 <style scoped>
