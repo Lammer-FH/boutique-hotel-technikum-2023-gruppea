@@ -1,8 +1,13 @@
 <!-- RoomsView.vue -->
 <template>
+        <div class="hero-section">
+      <div class="hero-content">
+        <h1 class="smaller-heading">Unsere Zimmer</h1>
+      </div>
+   </div>
+   
   <div class="container mt-5">
     <div class="rooms">
-      <h1 class="text-center">Find Out What Kind of Room You Prefer!</h1>
       <div class="room-grid">
         <div v-for="room in firstFiveRooms" :key="room.id" class="room-box">
           <div class="room-info">
@@ -244,5 +249,25 @@ onMounted(() => {
   opacity: 0;
   transition: opacity 0.3s;
   font-size: small;
+}
+
+.hero-section {
+  position: relative;
+  background: #333;
+  color: white;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+}
+.smaller-heading {
+  font-size: 2rem;
+  padding: 0 10px;
+  text-align: center;
 }
 </style>

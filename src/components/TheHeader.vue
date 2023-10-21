@@ -1,25 +1,19 @@
 <!-- TheHeader.vue -->
 <template>
     <header>
-      <div>
-        <img alt="logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-      </div>
-      <div class="button-container">
-        <!-- Trigger Login Modal -->
-        <button @click="toggleLoginModal" class="btn btn-outline-secondary">Anmelden</button>
-        <!-- Trigger Register Modal -->
-        <button @click="toggleRegisterModal" class="btn btn-success">Registrieren</button>
-      </div>
-  
-      <!-- Login Modal -->
-      <b-modal v-model="showLoginModal" title="Anmelden">
-        <LoginAndRegister type="login" />
-      </b-modal>
-  
-      <!-- Register Modal -->
-      <b-modal v-model="showRegisterModal" title="Registrieren">
-        <LoginAndRegister type="register" />
-      </b-modal>
+        <router-link to="/">
+            <img alt="logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+        </router-link>
+
+        <!-- <div>
+            <nav id="mainnav">
+                <RouterLink to="/">Boutique Hotel</RouterLink>
+                <RouterLink to="/book">Buchen</RouterLink>
+                <RouterLink to="/rooms">Unsere Zimmer</RouterLink>
+                <RouterLink to="/about">Über uns</RouterLink>
+                <RouterLink to="/impressum">Impressum</RouterLink>
+            </nav>
+        </div> -->
     </header>
   </template>
   

@@ -1,9 +1,9 @@
 <template>
-  <b-row class="headline">
-    <b-col>
-      <h1>Hotelbuchung</h1>
-    </b-col>
-  </b-row>
+   <div class="hero-section">
+      <div class="hero-content">
+        <h1 class="smaller-heading">Zimmer buchen</h1>
+      </div>
+   </div>
 
   <b-row>
     <b-col md="6" id="booking">
@@ -301,5 +301,25 @@ img {
   .room-extras {
     font-size: 15px;
   }
+}
+
+.hero-section {
+  position: relative;
+  background: #333;
+  color: white;
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+}
+.smaller-heading {
+  font-size: 2rem;
+  padding: 0 10px;
+  text-align: center;
 }
 </style>
