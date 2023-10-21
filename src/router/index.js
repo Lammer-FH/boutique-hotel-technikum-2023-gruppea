@@ -31,11 +31,6 @@ const router = createRouter({
       path: '/impressum',
       name: 'impressum',
       component: () => import('../views/ImpressumView.vue')
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: () => import('../components/LoginAndRegister.vue')
     }
   ]
 

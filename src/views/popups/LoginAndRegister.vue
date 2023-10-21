@@ -1,43 +1,43 @@
+<!-- LoginAndRegister.vue -->
 <template>
   <div>
     <!-- Buttons zum Öffnen der Modals -->
-    <button @click="showModal('login-modal')" class="btn btn-outline-secondary">Anmelden</button>
-    <button @click="showModal('register-modal')" class="btn btn-success">Registrieren</button>
+    <button @click="showLoginModal" class="btn btn-outline-secondary">Anmelden</button>
+    <button @click="showRegisterModal" class="btn btn-success">Registrieren</button>
 
     <!-- Modal für die Anmeldung -->
     <b-modal id="login-modal" title="Anmelden">
-      <form @submit.prevent="submitLoginForm">
-        <div class="form-group mb-3">
-          <input type="text" class="form-control" v-model="loginUsername" placeholder="Benutzername" required>
-        </div>
-        <div class="form-group mb-3">
-          <input type="password" class="form-control" v-model="loginPassword" placeholder="Passwort" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Anmelden</button>
-      </form>
+      <b-form @submit.prevent="submitLoginForm">
+        <b-form-group label="Benutzername" class="mb-3">
+          <b-form-input v-model="loginUsername" required></b-form-input>
+        </b-form-group>
+        <b-form-group label="Passwort" class="mb-3">
+          <b-form-input type="password" v-model="loginPassword" required></b-form-input>
+        </b-form-group>
+        <b-button type="submit" variant="primary">Anmelden</b-button>
+      </b-form>
     </b-modal>
 
     <!-- Modal für die Registrierung -->
     <b-modal id="register-modal" title="Registrieren">
-      <form @submit.prevent="submitRegisterForm">
-        <div class="form-group mb-3">
-          <input type="text" class="form-control" v-model="registerUsername" placeholder="Benutzername" required>
-        </div>
-        <div class="form-group mb-3">
-          <input type="password" class="form-control" v-model="registerPassword" placeholder="Passwort" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Registrieren</button>
-      </form>
+      <b-form @submit.prevent="submitRegisterForm">
+        <b-form-group label="Benutzername" class="mb-3">
+          <b-form-input v-model="registerUsername" required></b-form-input>
+        </b-form-group>
+        <b-form-group label="Passwort" class="mb-3">
+          <b-form-input type="password" v-model="registerPassword" required></b-form-input>
+        </b-form-group>
+        <b-button type="submit" variant="primary">Registrieren</b-button>
+      </b-form>
     </b-modal>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import { useBVModal } from 'bootstrap-vue';
 
-// Funktion zum Anzeigen der Modals
-const { showModal } = useBVModal();
+const showLoginModal = ref(false);
+const showRegisterModal = ref(false);
 
 // Daten für die Anmelde- und Registrierungsformulare
 const loginUsername = ref('');
@@ -54,7 +54,6 @@ const submitRegisterForm = () => {
   console.log('Registrierungsformular eingereicht:', { username: registerUsername.value, password: registerPassword.value });
 };
 </script>
-
 
 <style scoped>
 .registerForm[data-v-bb52c3e3] {

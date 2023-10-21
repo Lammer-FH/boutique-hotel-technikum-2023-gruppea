@@ -1,27 +1,19 @@
+import { defineStore } from 'pinia';
 import axios from 'axios';
 
-const state = {
-  // Dein State hier
-};
-
-const mutations = {
-  // Deine Mutations hier
-};
-
-const actions = {
-  async registerUser({ commit }, payload) {
-    try {
-      const response = await axios.post('https://boutique-hotel.helmuth-lammer.at/api/v1/register', payload);
-      commit('SET_USER', response.data);
-      // Zeige Bestätigungsanzeige
-    } catch (error) {
-      // Handle Error
-    }
+export const useGuestsStore = defineStore('guests', {
+  state: () => ({
+    registrationMessage: '',
+  }),
+  actions: {
+    async registerUser(payload) {
+      try {
+        const response = await axios.post('https://boutique-hotel.helmuth-lammer.at/api/v1/register', payload);
+        this.$patch({ user: response.data });
+        this.$patch({ registrationMessage: 'Danke für die Registrierung!' });
+      } catch (error) {
+        this.$patch({ registrationMessage: 'Registrierung fehlgeschlagen!' });
+      }
+    },
   },
-};
-
-export default {
-  state,
-  mutations,
-  actions,
-};
+});
