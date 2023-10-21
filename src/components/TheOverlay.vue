@@ -44,8 +44,11 @@ h3 {
 }
 
 @media (max-width: 768px) {
-
-  .greetings h1,
+.greetings h1,
+.greetings h3 {
+  display: none;
+}
+  /* .greetings h1,
     .greetings h3 {
       text-align: center;
     }
@@ -56,8 +59,8 @@ h3 {
 
     .greetings h3 {
       font-size: 1rem;
-    }
-}
+    } */
+  }
 
 @media (max-width: 576px) {
 
