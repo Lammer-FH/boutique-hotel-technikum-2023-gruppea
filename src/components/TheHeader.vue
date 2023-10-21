@@ -5,14 +5,16 @@ import { RouterLink, RouterView } from 'vue-router';
 
 <template>
     <header>
-        <img alt="logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+        <router-link to="/">
+            <img alt="logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+        </router-link>
 
         <!-- <div>
             <nav id="mainnav">
-                <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="/book">Book</RouterLink>
-                <RouterLink to="/rooms">Rooms</RouterLink>
-                <RouterLink to="/about">About</RouterLink>
+                <RouterLink to="/">Boutique Hotel</RouterLink>
+                <RouterLink to="/book">Buchen</RouterLink>
+                <RouterLink to="/rooms">Unsere Zimmer</RouterLink>
+                <RouterLink to="/about">Über uns</RouterLink>
                 <RouterLink to="/impressum">Impressum</RouterLink>
             </nav>
         </div> -->

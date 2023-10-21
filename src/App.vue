@@ -2,6 +2,7 @@
 import TheSidebar from './components/TheSidebar.vue';
 import TheHeader from './components/TheHeader.vue';
 import TheOverlay from './components/TheOverlay.vue';
+import TheFooter from './components/TheFooter.vue';
 
 </script>
 
@@ -10,8 +11,9 @@ import TheOverlay from './components/TheOverlay.vue';
     <TheHeader id="myHeader" />
     <TheOverlay id="myOverlay" msg="Boutique Hotel" />
     <TheSidebar id="mySidebar" />
-  </header>
+  </header> 
   <RouterView />
+  <TheFooter id="myFooter"/>
 </template>
 
 <style scoped>

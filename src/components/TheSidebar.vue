@@ -34,16 +34,16 @@ const props = defineProps({
 
         <button @click="toggleSidebar" class="close-btn">✖</button>
         <RouterLink to="/" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
-            <i class="fas fa-home"></i> Home
+            <i class="fas fa-home"></i> Boutique Hotel
         </RouterLink>
         <RouterLink to="/book" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
-            <i class="fa-solid fa-calendar-days"></i> Book
+            <i class="fa-solid fa-calendar-days"></i> Buchen
         </RouterLink>
         <RouterLink to="/rooms" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
-            <i class="fas fa-bed"></i> Rooms
+            <i class="fas fa-bed"></i> Unsere Zimmer
         </RouterLink>
         <RouterLink to="/about" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
-            <i class="fas fa-info-circle"></i> About
+            <i class="fas fa-info-circle"></i> Über uns
         </RouterLink>
         <RouterLink to="/impressum" @click.native="toggleSidebar" class="btn btn-primary mb-2 btn-left-align">
             <i class="fas fa-legal"></i> Impressum

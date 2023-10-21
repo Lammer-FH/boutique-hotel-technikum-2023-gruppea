@@ -5,7 +5,7 @@
         <h1 class="smaller-heading">Willkommen im Boutique Hotel</h1>
         <img src="/src/images/startpicture.jpeg" alt="Hotel Lobby" class="hero-image" />
         <p class="text-below-image">Entdecken Sie pure Luxus- und Entspannungserlebnisse in unserem exklusiven Hotel. Genießen Sie Ihren Aufenthalt in unseren eleganten Zimmern und erstklassigen Annehmlichkeiten.</p>
-        <router-link to="/zimmer-buchen" class="cta-button">Jetzt buchen</router-link>
+        <router-link to="/book" class="cta-button">Jetzt buchen</router-link>
       </div>
     </div>
   </div>
@@ -21,7 +21,7 @@
   position: relative;
   background: #333;
   color: white;
-  padding: 100px 0;
+  padding: 50px 0;
 }
 
 .hero-content {
