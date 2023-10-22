@@ -13,12 +13,12 @@
 
 <style scoped>
 footer {
-  width: 100%;
   background-color: #333;
   color: white;
   padding: 20px;
   text-align: center;
-  margin: 20px 0px;
+  /* margin: 20px 0px; */
+  width: 100%;
   max-width: min(calc(100vw - 0px), 1040px);
 }
 
