@@ -246,7 +246,7 @@ img {
   border: 1px solid #9bb8e5;
   /* padding: 2%; */
   width: 45.4vw;
-  max-width: min(calc(100vw - 20px), 1065px);
+  max-width: min(calc(100vw - 20px), 100%);
 }
 
 .room-extras {
