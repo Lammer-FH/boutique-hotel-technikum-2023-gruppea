@@ -9,6 +9,7 @@
   place-items: baseline;
   margin: 0%;
 }
+
 .hero-section[data-v-b4e148ca] {
   position: relative;
   background: #333;
@@ -16,12 +17,26 @@
   padding: 50px 0;
   width: calc(100% - 0px);
 }
+
 .hero-content {
   position: relative;
   max-width: 600px;
   text-align: center;
   margin: 0 auto;
 }
+
+.hero-content {
+  position: relative;
+  max-width: min(calc(100vw - 0px), 1040px);
+  height: 60px;
+  display: flex;
+  margin: 0 0 20px 0;
+  color: white;
+  background: #333;
+  align-items: center;
+  justify-content: space-around;
+}
+
 
 @media (min-width: 1024px) {}
 
