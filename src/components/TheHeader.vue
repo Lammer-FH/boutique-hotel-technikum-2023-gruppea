@@ -1,51 +1,40 @@
 <!-- TheHeader.vue -->
 <template>
     <header>
-        <router-link to="/">
-            <img alt="logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-        </router-link>
-
-        <!-- <div>
-            <nav id="mainnav">
-                <RouterLink to="/">Boutique Hotel</RouterLink>
-                <RouterLink to="/book">Buchen</RouterLink>
-                <RouterLink to="/rooms">Unsere Zimmer</RouterLink>
-                <RouterLink to="/about">Über uns</RouterLink>
-                <RouterLink to="/impressum">Impressum</RouterLink>
-            </nav>
-        </div> -->
+        <div class="left-section">
+            <router-link to="/">
+                <img alt="logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+            </router-link>
+        </div>
+        <div class="right-section">
+            <LoginRegisterButtons />
+        </div>
     </header>
-  </template>
+</template>  
   
-  <script setup>
-  import { ref } from 'vue';
-  import LoginAndRegister from '../views/popups/LoginAndRegister.vue';
-  
-  const showLoginModal = ref(false);
-  const showRegisterModal = ref(false);
-  
-  const toggleLoginModal = () => {
+<script setup>
+import { ref } from 'vue';
+import LoginRegisterButtons from './LoginRegisterButtons.vue';
+
+const showLoginModal = ref(false);
+const showRegisterModal = ref(false);
+
+const toggleLoginModal = () => {
     showLoginModal.value = !showLoginModal.value;
-  };
-  
-  const toggleRegisterModal = () => {
+};
+
+const toggleRegisterModal = () => {
     showRegisterModal.value = !showRegisterModal.value;
-  };
-  </script>
+};
+</script>
   
 <style scoped>
-.router-link-active,
-.router-link-exact-active,
-.my-active-class,
-.my-exact-active-class {
-    background: none;
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: -webkit-fill-available;
 }
-
-.router-link-active, .router-link-exact-active {
-  outline: none !important;  
-  box-shadow: none !important;
-}
-
 .logo {
     top: 10px;
     right: 10px;
