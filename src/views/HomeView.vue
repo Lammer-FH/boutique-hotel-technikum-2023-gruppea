@@ -17,20 +17,6 @@
   text-align: center;
 }
 
-.hero-section {
-  position: relative;
-  background: #333;
-  color: white;
-  padding: 50px 0;
-}
-
-.hero-content {
-  position: relative;
-  max-width: 600px;
-  text-align: center;
-  margin: 0 auto;
-}
-
 h1 {
   font-size: 2.5rem;
   margin-bottom: 20px;

@@ -9,6 +9,19 @@
   place-items: baseline;
   margin: 0%;
 }
+.hero-section[data-v-b4e148ca] {
+  position: relative;
+  background: #333;
+  color: white;
+  padding: 50px 0;
+  width: calc(100% - 0px);
+}
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+}
 
 @media (min-width: 1024px) {}
 
