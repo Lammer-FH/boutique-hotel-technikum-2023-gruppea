@@ -29,10 +29,6 @@ import TheFooter from './components/TheFooter.vue';
     line-height: normal;
 }
 
-.footer {
-    margin-top: auto;
-}
-
 .main-container {
     display: flex;
     flex-direction: column;
@@ -55,9 +51,6 @@ header#mainHeader[data-v-7a7a37b1][data-v-7a7a37b1] {
 }
 
 @media (max-width: 768px) {
-    .footer {
-        margin-top: 27rem;
-    }
 }
 
 @media (max-width: 500px) {
