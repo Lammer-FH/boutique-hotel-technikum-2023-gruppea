@@ -100,6 +100,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.container, .container-fluid {
+    margin: 0;
+    justify-content: space-evenly;
+    max-width: min(calc(100vw - 20px), 1040px);
+}
 .image-popup {
   position: fixed;
   top: 0;
@@ -158,28 +163,6 @@ onMounted(() => {
   min-height: 80px;
   margin: 8px 0;
 }
-
-/* .room-extras i {
-  font-size: 24px;
-  margin: 0 5px;
-  color: #4382e2e4;
-  text-align: -webkit-center;
-  transition: color 0.3s;
-}
-
-.room-extras i:hover {
-  color: #2a66c9;
-}
-
-.room-extras {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  flex-grow: 1;
-  align-items: baseline;
-} */
 
 .room-grid {
   display: flex;
