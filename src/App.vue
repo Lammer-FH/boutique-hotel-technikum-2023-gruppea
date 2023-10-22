@@ -7,16 +7,38 @@ import TheFooter from './components/TheFooter.vue';
 </script>
 
 <template>
-  <header id="mainHeader">
-    <TheHeader id="myHeader" />
-    <TheOverlay id="myOverlay" msg="Boutique Hotel" />
-    <TheSidebar id="mySidebar" />
-  </header> 
-  <RouterView />
-  <TheFooter id="myFooter"/>
+    <div class="main-container">
+        <header id="mainHeader">
+            <TheSidebar id="mySidebar" />
+            <TheHeader id="myHeader" />
+            <TheOverlay id="myOverlay" msg="Boutique Hotel" />
+        </header>
+        <div class="content">
+            <RouterView />
+        </div>
+        <footer class="footer">
+            <TheFooter id="myFooter" />
+        </footer>
+
+    </div>
 </template>
 
 <style scoped>
+.content {
+    flex: 1;
+    line-height: normal;
+}
+
+.footer {
+    margin-top: auto;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 header#mainHeader[data-v-7a7a37b1][data-v-7a7a37b1] {
     display: flex;
     flex-wrap: nowrap;
@@ -29,6 +51,12 @@ header#mainHeader[data-v-7a7a37b1][data-v-7a7a37b1] {
 @media (min-width: 1024px) {
     header#mainHeader {
         flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer {
+        margin-top: 27rem;
     }
 }
 

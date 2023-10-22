@@ -1,9 +1,9 @@
 <template>
-   <div class="hero-section">
-      <div class="hero-content">
-        <h1 class="smaller-heading">Zimmer buchen</h1>
-      </div>
-   </div>
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1 class="smaller-heading">Zimmer buchen</h1>
+    </div>
+  </div>
 
   <b-row>
     <b-col md="6" id="booking">
@@ -32,8 +32,8 @@
 
           <!-- Button für das Popup eingefügt -->
           <b-button @click="bookRoom" variant="primary">Buchen</b-button>
-          <BookingPopup v-model="showModal" :hideModal="hideModal" :numberOfAdults="adults" :numberOfChildren="children" :checkIn="checkIn"
-            :checkOut="checkOut" :selectedRoom="selectedRoomName" />
+          <BookingPopup v-model="showModal" :hideModal="hideModal" :numberOfAdults="adults" :numberOfChildren="children"
+            :checkIn="checkIn" :checkOut="checkOut" :selectedRoom="selectedRoomName" />
           <!-- Adults: {{ adults }}
           Children: {{ children }} -->
         </b-form>
@@ -235,15 +235,18 @@ onMounted(() => {
   border-radius: 10px;
   padding: 2%;
   width: -webkit-fill-available;
+  margin-bottom: 20px
 }
 
 img {
   border-radius: 10px;
   width: -webkit-fill-available;
-  height: 460px;
+  height: 435px;
   object-fit: cover;
   border: 1px solid #9bb8e5;
   /* padding: 2%; */
+  width: 45.4vw;
+  max-width: min(calc(100vw - 20px), 1065px);
 }
 
 .room-extras {
@@ -261,6 +264,11 @@ img {
   /* padding-bottom: 3rem; */
   padding-right: 2rem;
 }
+.smaller-heading {
+  font-size: 2rem;
+  padding: 0 10px;
+  text-align: center;
+}
 
 .room-extras i:hover {
   color: rgba(255, 255, 255, 0.900) !important;
@@ -271,7 +279,7 @@ img {
 }
 
 .row {
-  --bs-gutter-x: 1.5rem;
+  --bs-gutter-x: 1rem;
   --bs-gutter-y: 1.5rem;
   display: flex;
   flex-wrap: wrap;
@@ -280,20 +288,43 @@ img {
   margin-left: calc(-0.5 * var(--bs-gutter-x));
 }
 
+
 @media (min-width: 1025px) {
   .row {
     width: 100vw;
-    max-width: min(calc(100vw - 20px), 1040px);
+    max-width: min(calc(100vw - 20px), 1065px);
+    height: 460px;
   }
 }
 
-@media (max-width: 1024px) {}
+@media (max-width: 1024px) {
+  .row {
+    width: 100vw;
+    max-width: min(calc(100vw - 7%), 1040px);
+    height: 460px;
+  }
+}
 
-@media (max-width: 768px) {}
+@media (max-width: 768px) {
+  img {
+    width: -webkit-fill-available;
+  }
+  .row{
+    --bs-gutter-y: 0;
+  }
+}
 
 @media (max-width: 480px) {
   .room-extras {
     font-size: 20px;
+  }
+
+  .row {
+    max-width: min(calc(100vw - 15%), 1040px);
+  }
+
+  div#booking {
+    margin-top: 0;
   }
 }
 
@@ -301,10 +332,5 @@ img {
   .room-extras {
     font-size: 15px;
   }
-}
-.smaller-heading {
-  font-size: 2rem;
-  padding: 0 10px;
-  text-align: center;
 }
 </style>

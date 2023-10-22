@@ -1,3 +1,4 @@
+<!-- TheFooter.vue -->
 <template>
   <div>
     <footer>
@@ -17,6 +18,8 @@ footer {
   color: white;
   padding: 20px;
   text-align: center;
+  margin: 20px 0px;
+  max-width: min(calc(100vw - 0px), 1040px);
 }
 
 .footer-links {
