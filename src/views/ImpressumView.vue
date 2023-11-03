@@ -1,8 +1,6 @@
 <template>
   <div class="container mt-4">
-    <div
-      class="row justify-content-center align-items-center"
-      style="min-height: 100vh">
+    <div class="row justify-content-center align-items-center" style="min-height: 100vh">
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
@@ -12,9 +10,7 @@
               Responsible for the content:
             </strong>
             <address class="animated fadeIn">
-              <strong class="font-weight-normal text-sm"
-                >Boutique Hotel GmbH</strong
-              ><br />
+              <strong class="font-weight-normal text-sm">Boutique Hotel GmbH</strong><br />
               <small class="text-sm">
                 Lifestreet 12<br />
                 22314 Alexandria <br />
@@ -32,9 +28,7 @@
               Commercial register Number
             </strong>
             <p class="animated fadeIn font-weight-normal text-sm">RN 149248B</p>
-            <strong class="animated fadeIn font-weight-bold"
-              >Commercial Count:</strong
-            >
+            <strong class="animated fadeIn font-weight-bold">Commercial Count:</strong>
             <p class="animated fadeIn font-weight-normal text-sm">
               Supreme Court of Virginia
             </p>
@@ -55,7 +49,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .blue-heading {
   color: lightblue;
   font-family: "Arial", sans-serif;
@@ -68,41 +62,28 @@ export default {
     align-items: center;
     justify-content: center;
   }
-<<<<<<< HEAD
-.smaller-heading {
-  font-size: 2rem;
-  padding: 0 10px;
-  text-align: center;
-=======
-}
 
-/* Add Animate.css styles */
-.animated {
-  animation-duration: 2s;
-}
+  .smaller-heading {
+    font-size: 2rem;
+    padding: 0 10px;
+    text-align: center;
+  }
 
-/* Custom styles for the card */
-.card {
-  border: none;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
->>>>>>> ddba0472661ebb05229034dfaf2969688d8b77de
-}
+  .card-body {
+    padding: 30px;
+  }
 
-.card-body {
-  padding: 30px;
-}
+  /* Adjust font styles */
+  .font-weight-bold {
+    font-weight: bold;
+  }
 
-/* Adjust font styles */
-.font-weight-bold {
-  font-weight: bold;
-}
+  .font-weight-normal {
+    font-weight: normal;
+  }
 
-.font-weight-normal {
-  font-weight: normal;
-}
-
-.display-4 {
-  font-size: 2.5rem;
+  .display-4 {
+    font-size: 2.5rem;
+  }
 }
 </style>
