@@ -1,7 +1,7 @@
 <template>
   <div class="home-page">
-    <div class="hero-section">
-      <div class="hero-content">
+    <div class="home-section">
+      <div class="home-content">
         <h1 class="smaller-heading">Willkommen im Boutique Hotel</h1>
         <img src="/src/images/startpicture.jpeg" alt="Hotel Lobby" class="hero-image" />
         <p class="text-below-image">Entdecken Sie pure Luxus- und Entspannungserlebnisse in unserem exklusiven Hotel. Genießen Sie Ihren Aufenthalt in unseren eleganten Zimmern und erstklassigen Annehmlichkeiten.</p>
@@ -12,23 +12,22 @@
 </template>
 
 <style scoped>
-.home-page {
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-}
-
-.hero-section {
+.home-section[data-v-b4e148ca] {
   position: relative;
   background: #333;
   color: white;
   padding: 50px 0;
+  max-width: min(calc(100vw - 20px), 1040px);
 }
-
-.hero-content {
+.home-content {
   position: relative;
   max-width: 600px;
   text-align: center;
   margin: 0 auto;
+}
+.home-page {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
 }
 
 h1 {

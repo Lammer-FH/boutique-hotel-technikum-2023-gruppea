@@ -100,6 +100,11 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.container, .container-fluid {
+    margin: 0;
+    justify-content: space-evenly;
+    max-width: min(calc(100vw - 20px), 1040px);
+}
 .image-popup {
   position: fixed;
   top: 0;
@@ -131,14 +136,13 @@ onMounted(() => {
   border: 1px solid #9bb8e5;
   border-radius: 5px;
   padding: 2%;
-  border-radius: 10px;
 }
 
 .room-box .room-image {
   width: 100%;
   height: 150px;
   object-fit: cover;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 
@@ -159,28 +163,6 @@ onMounted(() => {
   min-height: 80px;
   margin: 8px 0;
 }
-
-/* .room-extras i {
-  font-size: 24px;
-  margin: 0 5px;
-  color: #4382e2e4;
-  text-align: -webkit-center;
-  transition: color 0.3s;
-}
-
-.room-extras i:hover {
-  color: #2a66c9;
-}
-
-.room-extras {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  flex-grow: 1;
-  align-items: baseline;
-} */
 
 .room-grid {
   display: flex;
@@ -250,21 +232,6 @@ onMounted(() => {
   opacity: 0;
   transition: opacity 0.3s;
   font-size: small;
-}
-
-.hero-section {
-  position: relative;
-  background: #333;
-  color: white;
-  padding: 10px 0;
-  margin-bottom: 10px;
-}
-
-.hero-content {
-  position: relative;
-  max-width: 600px;
-  text-align: center;
-  margin: 0 auto;
 }
 .smaller-heading {
   font-size: 2rem;

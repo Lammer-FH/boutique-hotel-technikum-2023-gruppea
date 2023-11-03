@@ -10,35 +10,35 @@
   margin: 0%;
 }
 
-/* a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-} */
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+.hero-section[data-v-b4e148ca] {
+  position: relative;
+  background: #333;
+  color: white;
+  padding: 50px 0;
+  width: calc(100% - 0px);
 }
 
-@media (min-width: 1024px) {
-  /* body {
-    display: flex;
-    place-items: center;
-  } */
-
-  /* #app {
-    padding: 3rem 3rem;
-    place-self: flex-start;
-    place-items: baseline;
-    margin: 0%;  
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  } */
+.hero-content {
+  position: relative;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
 }
+
+.hero-content {
+  position: relative;
+  max-width: min(calc(100vw - 0px), 1040px);
+  height: 60px;
+  display: flex;
+  margin: 0 0 20px 0;
+  color: white;
+  background: #333;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+@media (min-width: 1024px) {}
 
 .modal-dialog {
   width: calc(100% - 4%);
@@ -46,26 +46,19 @@
 
 i.bi {
   font-size: 3rem;
-  /* Größe anpassen */
   margin-right: 10px;
-  /* Abstand hinzufügen */
   color: #007bff;
-  /* Farbe ändern */
 }
 
-/* Standardgröße der Icons */
 .bi {
   font-size: 1.5rem;
   color: #007bff;
-  /* Farbe ändern */
 }
 
-/* Größe der Icons auf Mobilgeräten ändern */
 @media (max-width: 767px) {
   .bi {
     font-size: 1rem;
     color: #007bff;
-    /* Farbe ändern */
   }
 }
 
@@ -81,7 +74,6 @@ i.bi {
   padding: 0;
   margin: 0;
   position: relative;
-  /* Damit der Tooltip relativ zu diesem Button positioniert werden kann */
 }
 
 .tooltip-text {
@@ -94,10 +86,8 @@ i.bi {
   position: absolute;
   z-index: 1;
   bottom: 125%;
-  /* Positionieren Sie den Tooltip oberhalb des Elements */
   left: 50%;
   margin-left: -60px;
-  /* Negative Halbbreite des Tooltips, um ihn zu zentrieren */
   opacity: 0;
   transition: opacity 0.3s;
 }
@@ -109,11 +99,7 @@ i.bi {
 
 ul {
   list-style-type: none;
-  /* Entfernt die Aufzählungszeichen */
   padding: 0;
-  /* Entfernt das Standard-Padding */
   display: flex;
-  /* Verwendet Flexbox, um die Elemente nebeneinander anzuzeigen */
   gap: 10px;
-  /* Fügt einen Abstand zwischen den Icons hinzu */
 }

@@ -33,6 +33,7 @@ const router = createRouter({
       component: () => import('../views/ImpressumView.vue')
     }
   ]
+
 })
 
 export default router

@@ -57,9 +57,11 @@ const props = defineProps({
     border: transparent;
     font-size: xxx-large;
 }
+
 button.btn.btn.toggle {
-    width: 125px;
-    text-align: end;
+    /* width: 125px;
+    text-align: end; */
+    padding: 0;
 }
 
 .sidebar[style*="display: block"] {
