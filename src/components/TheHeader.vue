@@ -7,14 +7,14 @@
             </router-link>
         </div>
         <div class="right-section">
-            <LoginRegisterButtons />
+            <LoginAndRegister/>
         </div>
     </header>
 </template>  
   
 <script setup>
 import { ref } from 'vue';
-import LoginRegisterButtons from './LoginRegisterButtons.vue';
+import LoginAndRegister from './LoginAndRegister.vue';
 
 const showLoginModal = ref(false);
 const showRegisterModal = ref(false);

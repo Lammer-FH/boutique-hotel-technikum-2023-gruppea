@@ -1,4 +1,4 @@
-<!-- LoginRegisterButtons.vue -->
+<!-- LoginAndRegister.vue -->
 <template>
     <div class="logRegButton">
         <!-- Buttons zum Öffnen der Modals -->
