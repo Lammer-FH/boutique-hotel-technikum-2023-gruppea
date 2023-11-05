@@ -58,7 +58,7 @@ import axios from 'axios';
 import { BModal, BForm, BFormGroup, BFormInput, BButton } from 'bootstrap-vue-3';
 
 const showModal = ref(false);
-const modalState = ref('login'); // 'login' oder 'register'
+const modalState = ref('login');
 // const email = ref('');
 // const firstName = ref('');
 // const lastName = ref('');
@@ -83,17 +83,12 @@ const registerUser = async () => {
             username: email.value,
             password: password.value
         });
-
-        // Verarbeite die Antwort des Servers
         console.log('Registrierung erfolgreich', response.data);
-        // Zeige eine Bestätigungsnachricht an
         alert('Registrierung erfolgreich!');
-        showModal.value = false; // Schließe das Modal
+        showModal.value = false;
 
     } catch (error) {
-        // Fehlerbehandlung
         console.error('Registrierung fehlgeschlagen', error);
-        // Zeige eine Fehlermeldung an
         alert('Registrierung fehlgeschlagen: ' + error.response.data.message);
     }
 };
@@ -104,9 +99,8 @@ const toggleModal = (state) => {
 };
 
 const submitLoginForm = () => {
-    // Logik für die Einreichung des Anmeldeformulars
     console.log('Anmelden', email.value, password.value);
-    showModal.value = false; // Modal schließen
+    showModal.value = false;
 };
 
 const submitRegisterForm = async () => {
@@ -115,9 +109,8 @@ const submitRegisterForm = async () => {
         return;
     }
     await registerUser();
-    // Logik für die Einreichung des Registrierungsformulars
     console.log('Registrieren', firstName.value, lastName.value, email.value, password.value);
-    showModal.value = false; // Modal schließen
+    showModal.value = false;
 };
 
 const validateEmail = (email) => {
@@ -132,7 +125,7 @@ const formatDate = (date) => {
     return `${date.getDate()}${date.getMonth() + 1}${date.getFullYear()}_${hours}${minutes}${seconds}`;
 };
 
-// Setze die initialen Werte für die Testdaten
+// Testdaten
 const currentDate = new Date();
 const email = ref(`${formatDate(new Date())}@test.com`);
 const firstName = ref('Max');
@@ -142,13 +135,6 @@ const confirmPassword = ref('Passwort123');
 const birthday = ref(`${currentDate.getFullYear() - 18}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`);
 </script>
 
-
-
-
-
-
-
-
 <style scoped>
 .logRegButton {
     display: flex;
@@ -156,37 +142,25 @@ const birthday = ref(`${currentDate.getFullYear() - 18}-${(currentDate.getMonth(
     justify-content: space-between;
 }
 
-/* ... dein bestehender Stil ... */
-/* Stil für das Test-Popup */
 .modal {
     display: block;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 1;
-    /* Sit on top */
     left: 0;
     top: 0;
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: auto;
-    /* Enable scroll if needed */
     background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
 }
 
 .modal-content {
     background-color: #fefefe;
     margin: 15% auto;
-    /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-    /* Could be more or less, depending on screen size */
 }
 
 .close {
