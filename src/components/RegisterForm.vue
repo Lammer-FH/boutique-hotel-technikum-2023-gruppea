@@ -18,13 +18,13 @@
         </b-form-group>
 
         <b-form-group label="Vorname" class="mb-3">
-            <b-form-input v-model="firstName" required autocomplete="firstname"></b-form-input>
+            <b-form-input v-model="firstName" required autocomplete="given-name"></b-form-input>
         </b-form-group>
         <b-form-group label="Nachname" class="mb-3">
-            <b-form-input v-model="lastName" required autocomplete="lastname"></b-form-input>
+            <b-form-input v-model="lastName" required autocomplete="family-name"></b-form-input>
         </b-form-group>
         <b-form-group label="Geburtstag" class="mb-3">
-            <b-form-input type="date" v-model="birthday" required autocomplete="birthday"></b-form-input>
+            <b-form-input type="date" v-model="birthday" required autocomplete="bday"></b-form-input>
         </b-form-group>
 
         <b-form-group label="Passwort" class="mb-3">
