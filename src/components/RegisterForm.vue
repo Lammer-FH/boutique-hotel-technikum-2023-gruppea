@@ -1,9 +1,11 @@
 <!-- RegisterForm.vue -->
 <template>
     <div v-if="registrationSuccessful">
-        <p>Registrierung erfolgreich! Ihre E-Mail-Adresse: {{ email }}</p>
-        
+        <div class="alert alert-success" role="alert">
+            Registrierung erfolgreich! Du kannst dich jetzt anmelden.
+        </div>
     </div>
+
     <b-form @submit.prevent="submitRegister" v-else>
         <b-form-group label="E-Mail" class="mb-3" describedby="email-help">
             <b-form-input type="email" v-model="email" autocomplete="username" placeholder="beispiel@domain.com"
@@ -39,11 +41,11 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '@/stores/authService';
-import axios from 'axios';
+import { defineProps } from 'vue';
 
-// Testdaten
-const currentDate = new Date();
-const formattedDate = `${currentDate.getFullYear()}-${(currentDate.getMonth() + 1).toString().padStart(2, '0')}-${currentDate.getDate().toString().padStart(2, '0')}`;
+const props = defineProps({
+    modalState: String,
+});
 
 const firstName = ref('Max');
 const lastName = ref('Mustermann');
@@ -59,13 +61,13 @@ const generateTestEmail = () => {
     const hours = now.getHours().toString().padStart(2, '0');
     const minutes = now.getMinutes().toString().padStart(2, '0');
     const seconds = now.getSeconds().toString().padStart(2, '0');
-    return `${year}${month}${day}_${hours}${minutes}${seconds}@test.com`;
+    return `${year}${month}${day}_${hours}${minutes}${seconds}@tester.com`;
 };
 const email = ref(generateTestEmail());
 
 const generateTestBirthday = () => {
     const currentDate = new Date();
-    const year = currentDate.getFullYear() - 18; // 18 Jahre zurück
+    const year = currentDate.getFullYear() - 18;
     const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentDate.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
@@ -74,8 +76,6 @@ const generateTestBirthday = () => {
 const birthday = ref(generateTestBirthday());
 
 const authStore = useAuthStore();
-
-const showModal = ref(false);
 
 const registrationSuccessful = ref(false);
 
@@ -95,7 +95,6 @@ const submitRegister = async () => {
 
         if (authStore.user) {
             registrationSuccessful.value = true;
-            // Entfernen Sie den alert('Registrierung erfolgreich!');
         }
     } catch (error) {
         console.error('Registrierung fehlgeschlagen', authStore.error);
@@ -108,3 +107,9 @@ const validateEmail = (email) => {
     return pattern.test(email);
 };
 </script>
+
+<style scoped>
+button.btn.btn-secondary.btn-md.btn {
+    display: none;
+}
+</style>
