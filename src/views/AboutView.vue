@@ -8,7 +8,7 @@
   <div class="team-heading">
     <h2 class="centered-heading">Unser Team</h2>
     <p class="text-justify">Willkommen bei Boutique Hotel - Ihrem exklusiven Ziel für unvergessliche Aufenthalte und erstklassigen Service. Wir sind stolz darauf, Ihnen ein Team von Experten präsentieren zu können, das sich mit Leidenschaft und Hingabe dafür einsetzt, Ihren Aufenthalt zu einem unvergesslichen Erlebnis zu machen.</p>
-    <p class="text-justify">Unsere Leidenschaft für Gastfreundschaft und unser Engagement für Exzellenz sind die Eckpfeiler, auf denen Boutique Hotel aufgebaut ist. Jedes Mitglied unseres Teams bringt ein einzigartiges Set von Fähigkeiten und Fachwissen mit sich, um sicherzustellen, dass Ihr Aufenthalt unvergesslich wird.</p>
+    <p class="text-justify">Unsere Leidenschaft für Gastfreundschaft und unser Engagement für Exzellenz sind die Eckpfeiler, auf denen Boutique Hotel aufgebaut ist. Jedes Mitglied unseres Teams bringt ein einzigartiges Set von Fähigkeiten und Fachwissen mit sich, um sicherzustellen, dass Ihr Aufenthalt unvergesslich wird!</p>
   </div>
 
   <div>
