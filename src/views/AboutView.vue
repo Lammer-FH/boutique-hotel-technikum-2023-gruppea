@@ -97,7 +97,7 @@ img {
 
 .hotel-image {
   width: 100%;
-  height: 100%; 
+  height: 100%;
   object-fit: cover;
   margin-top: 5px;
   margin-bottom: 5px;

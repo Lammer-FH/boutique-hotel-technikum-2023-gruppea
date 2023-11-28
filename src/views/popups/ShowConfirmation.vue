@@ -92,12 +92,9 @@ const props = defineProps({
 
 .showImage {
   width: calc(100% - 0%);
-  /* height: calc(100% - 10%); */
   object-fit: cover;
   box-sizing: border-box;
-  /* border: 1px solid #9bb8e5; */
   border-radius: 5px;
-  /* padding: 2%; */
   margin: 10px 0 10px 0;
 }
 
