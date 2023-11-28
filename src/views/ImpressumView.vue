@@ -41,7 +41,7 @@
             <strong class="animated fadeIn font-weight-bold">
               TaxID Identification Number
             </strong>
-            <p class="animated fadeIn font-weight-normal text-sm">EIN33202A</p>
+            <p class="animated fadeIn font-weight-normal text-sm">EIN33202A!</p>
           </div>
         </div>
       </div>
