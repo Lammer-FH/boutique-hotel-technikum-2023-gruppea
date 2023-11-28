@@ -1,6 +1,8 @@
 <template>
   <div class="container mt-4">
-    <div class="row justify-content-center align-items-center" style="min-height: 100vh">
+    <div
+      class="row justify-content-center align-items-center"
+      style="min-height: 100vh">
       <div class="col-md-6">
         <div class="card">
           <div class="card-body">
@@ -10,7 +12,9 @@
               Responsible for the content:
             </strong>
             <address class="animated fadeIn">
-              <strong class="font-weight-normal text-sm">Boutique Hotel GmbH</strong><br />
+              <strong class="font-weight-normal text-sm"
+                >Boutique Hotel GmbH</strong
+              ><br />
               <small class="text-sm">
                 Lifestreet 12<br />
                 22314 Alexandria <br />
@@ -28,14 +32,16 @@
               Commercial register Number
             </strong>
             <p class="animated fadeIn font-weight-normal text-sm">RN 149248B</p>
-            <strong class="animated fadeIn font-weight-bold">Commercial Count:</strong>
+            <strong class="animated fadeIn font-weight-bold"
+              >Commercial Count:</strong
+            >
             <p class="animated fadeIn font-weight-normal text-sm">
               Supreme Court of Virginia
             </p>
             <strong class="animated fadeIn font-weight-bold">
               TaxID Identification Number
             </strong>
-            <p class="animated fadeIn font-weight-normal text-sm">EIN33202A</p>
+            <p class="animated fadeIn font-weight-normal text-sm">EIN33202A!</p>
           </div>
         </div>
       </div>
